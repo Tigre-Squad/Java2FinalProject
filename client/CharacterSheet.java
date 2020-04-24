@@ -13,7 +13,7 @@ public class CharacterSheet extends JFrame {
    //all variables
    
    /**
-    *
+    *safdq
     */
    private static final long serialVersionUID = -6068938648905891832L;
    private JLabel name;
