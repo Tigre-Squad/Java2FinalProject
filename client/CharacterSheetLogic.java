@@ -3,7 +3,7 @@ import java.util.Random;
 public class CharacterSheetLogic {
 
    public static final char[] Intitive = null;
-private String charClass;
+   private String charClass;
    private int level;
    private String race;
 
@@ -66,7 +66,7 @@ private String charClass;
    protected boolean stealthProficiency;
    protected boolean survivalProficiency;
 
-   protected int armorClass; // not implemented in GUI
+   protected int armorClass;
    protected int initiative;
    protected int speed;
    protected int health;
@@ -75,7 +75,7 @@ private String charClass;
 
    private String armor;
    private String armorWheight; // not implemented in GUI
-   protected String shield; // not implemented in GUI
+   protected String shield;
 
    protected String[] attacksSpellcasting;
    protected String[] equipment;
@@ -109,7 +109,7 @@ private String charClass;
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    public CharacterSheetLogic(String _charClass, int _level, String _race, int _strength, int _dex, int _con,
-         int _intelligence, int _wisdom, int _charisma, String[] _equipment, String[] _attacksSpellcasting) {
+         int _intelligence, int _wisdom, int _charisma, String[] _equipment, String _armor, int health, int _ac, String _sheild) {
 
       charClass = _charClass;
       level = _level;
@@ -121,9 +121,35 @@ private String charClass;
       wisdom = _wisdom;
       charisma = _charisma;
       equipment = _equipment;
-      attacksSpellcasting = _attacksSpellcasting;
+      // attacksSpellcasting = _attacksSpellcasting;
+      armor = _armor;
+      armorClass = _ac;
+      shield = _sheild;
+   }
 
-      RaceSelect();
+   public CharacterSheetLogic(String _charClass, int _level, String _race, int _strength, int _dex, int _con,
+         int _intelligence, int _wisdom, int _charisma) {
+
+      System.out.println(_charClass + "     " + _level + "     " + _race + "     " + _strength + "     " + _dex + "     "
+            + _con + "     " + _intelligence + "     " + _wisdom + "     " + _charisma);
+   }
+
+   public void update(String _charClass, int _level, String _race, int _strength, int _dex, int _con,
+   int _intelligence, int _wisdom, int _charisma, String[] _equipment, String _armor, int health, int _ac, String _sheild) {
+      charClass = _charClass;
+      level = _level;
+      race = _race;
+      strength = _strength;
+      dex = _dex;
+      con = _con;
+      intelligence = _intelligence;
+      wisdom = _wisdom;
+      charisma = _charisma;
+      equipment = _equipment;
+      //attacksSpellcasting = _attacksSpellcasting;
+      armor = _armor;
+      armorClass = _ac;
+      shield = _sheild;
    }
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -165,7 +191,7 @@ private String charClass;
          } else {
             GnomeByLevel();
          }
-      } else if (race.equalsIgnoreCase("HalfElf")) {
+      } else if (race.equalsIgnoreCase("Half-Elf")) {
          if (level == 1) {
             HalfElf();
          } else {
@@ -296,7 +322,7 @@ private String charClass;
    public void Dragonborn() {
 
       raceTrait[0] = "Draconic Ancestry - You have draconic ancestry. Choose one type o f dragon from the Draconic Ancestry table. Your breath weapon and damage resistance are determined by the dragon type, as shown in the table.";
-      raceTrait[1] = "Breath Weapon - You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath w eapon, each creature in the area o f the exhalation must make a saving throw, the type o f which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can�t use it again until you complete a short or long rest.";
+      raceTrait[1] = "Breath Weapon - You can use your action to exhale destructive energy. Your draconic ancestry determines the size, shape, and damage type of the exhalation. When you use your breath weapon, each creature in the area o f the exhalation must make a saving throw, the type o f which is determined by your draconic ancestry. The DC for this saving throw equals 8 + your Constitution modifier + your proficiency bonus. A creature takes 2d6 damage on a failed save, and half as much damage on a successful one. The damage increases to 3d6 at 6th level, 4d6 at 11th level, and 5d6 at 16th level. After you use your breath weapon, you can�t use it again until you complete a short or long rest.";
       raceTrait[2] = "Damage Resistance - You have resistance to the damage type associated with your draconic ancestry.";
 
       strength = strength + 2;
@@ -423,8 +449,28 @@ private String charClass;
 
                hitDice = "One d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                classFeatures[0] = "Rage(2 uses & +2 damage) - In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren�t w earing heavy armor:         � You have advantage on Strength checks and Strength saving throws. � When you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian, as shown in the Rage Damage column of the Barbarian table. � You have resistance to bludgeoning, piercing, and slashing damage.        If you are able to cast spells, you can�t cast them or concentrate on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven�t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action. Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian table, you must finish a long rest before you can rage again.";
@@ -435,8 +481,28 @@ private String charClass;
 
                hitDice = "Two d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                classFeatures[2] = "Reckless Attack -You can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn.";
@@ -447,8 +513,28 @@ private String charClass;
 
                hitDice = "Three d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                classFeatures[0] = "Rage(3 uses & +2 damage) - In battle, you fight with primal ferocity. On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren�t w earing heavy armor:         � You have advantage on Strength checks and Strength saving throws. � When you make a melee weapon attack using Strength, you gain a bonus to the damage roll that increases as you gain levels as a barbarian, as shown in the Rage Damage column of the Barbarian table. � You have resistance to bludgeoning, piercing, and slashing damage.        If you are able to cast spells, you can�t cast them or concentrate on them while raging. Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven�t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action. Once you have raged the number of times shown for your barbarian level in the Rages column of the Barbarian table, you must finish a long rest before you can rage again.";
@@ -458,8 +544,28 @@ private String charClass;
 
                hitDice = "Four d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                classFeatures[4] = "Ability Score Improvement(lvl 4) - increase one ability score of your choice by 2, or you can increase two ability scores of your choice by 1. As normal, you can�t increase an ability score above 20 using this feature.";
@@ -471,8 +577,28 @@ private String charClass;
 
                hitDice = "Five d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -487,8 +613,28 @@ private String charClass;
 
                hitDice = "Six d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -502,8 +648,28 @@ private String charClass;
 
                hitDice = "Seven d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -517,8 +683,28 @@ private String charClass;
 
                hitDice = "Eight d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -534,8 +720,28 @@ private String charClass;
 
                hitDice = "Nine d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -550,8 +756,28 @@ private String charClass;
 
                hitDice = "Ten d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -563,8 +789,28 @@ private String charClass;
 
                hitDice = "Eleven d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -578,8 +824,28 @@ private String charClass;
 
                hitDice = "Twelve d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -597,8 +863,28 @@ private String charClass;
 
                hitDice = "Thirteen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -612,8 +898,28 @@ private String charClass;
 
                hitDice = "Fourteen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -625,8 +931,28 @@ private String charClass;
 
                hitDice = "Fifteen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -640,8 +966,28 @@ private String charClass;
 
                hitDice = "Sixteen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -657,8 +1003,28 @@ private String charClass;
 
                hitDice = "Seventeen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -673,8 +1039,28 @@ private String charClass;
 
                hitDice = "Eighteen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -688,8 +1074,28 @@ private String charClass;
 
                hitDice = "Nineteen d12";
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
@@ -704,8 +1110,28 @@ private String charClass;
                strength = strength + 4;
                con = con + 4;
 
-               if (armor.equals("")) {
-                  armorClass = 10 + dexMod + conMod;
+               switch (armor) {
+                  case "none":
+                     armorClass = 10 + dexMod + conMod;
+                     break;
+                  case "Leather":
+                     armorClass = 11;
+                     break;
+                  case "Studded Leather Armor":
+                     armorClass = 12;
+                     break;
+                  case "Hide Armor":
+                     armorClass = 12;
+                     break;
+                  case "Chain Shirt":
+                     armorClass = 13;
+                     break;
+                  case "Ring Mail":
+                     armorClass = 14;
+                     break;
+                  case "Plate":
+                     armorClass = 18;
+                     break;
                }
 
                if (armorWheight != "heavy") {
