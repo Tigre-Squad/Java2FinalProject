@@ -77,8 +77,8 @@ public class CharacterSheetLogic {
    private String armorWheight; // not implemented in GUI
    protected String shield;
 
-   protected String[] attacksSpellcasting;
-   protected String[] equipment;
+   protected String attacksSpellcasting;
+   protected String equipment;
    private String[] raceTrait = new String[10];
    private String[] languages = new String[10]; // not implemented in GUI
    private String[] classFeatures = new String[20];
@@ -109,7 +109,8 @@ public class CharacterSheetLogic {
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    public CharacterSheetLogic(String _charClass, int _level, String _race, int _strength, int _dex, int _con,
-         int _intelligence, int _wisdom, int _charisma, String[] _equipment, String _armor, int health, int _ac, String _sheild) {
+         int _intelligence, int _wisdom, int _charisma, String _equipment, String _armor, int health, int _ac,
+         String _sheild) {
 
       charClass = _charClass;
       level = _level;
@@ -130,12 +131,12 @@ public class CharacterSheetLogic {
    public CharacterSheetLogic(String _charClass, int _level, String _race, int _strength, int _dex, int _con,
          int _intelligence, int _wisdom, int _charisma) {
 
-      System.out.println(_charClass + "     " + _level + "     " + _race + "     " + _strength + "     " + _dex + "     "
-            + _con + "     " + _intelligence + "     " + _wisdom + "     " + _charisma);
+      System.out.println(_charClass + "     " + _level + "     " + _race + "     " + _strength + "     " + _dex
+            + "     " + _con + "     " + _intelligence + "     " + _wisdom + "     " + _charisma);
    }
 
-   public void update(String _charClass, int _level, String _race, int _strength, int _dex, int _con,
-   int _intelligence, int _wisdom, int _charisma, String[] _equipment, String _armor, int health, int _ac, String _sheild) {
+   public void update(String _charClass, int _level, String _race, int _strength, int _dex, int _con, int _intelligence,
+         int _wisdom, int _charisma, String _equipment, String _armor, int health, int _ac, String _sheild) {
       charClass = _charClass;
       level = _level;
       race = _race;
@@ -146,7 +147,7 @@ public class CharacterSheetLogic {
       wisdom = _wisdom;
       charisma = _charisma;
       equipment = _equipment;
-      //attacksSpellcasting = _attacksSpellcasting;
+      // attacksSpellcasting = _attacksSpellcasting;
       armor = _armor;
       armorClass = _ac;
       shield = _sheild;

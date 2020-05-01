@@ -1,0 +1,111 @@
+{
+    "Character Sheet": {
+        "character info": {
+            "name": "awsergwar",
+            "character class": "Barbarian",
+            "level": 3,
+            "alignment": "asdfg",
+            "race": "Dwarf",
+            "gender": "waserf",
+            "description": "Description: ",
+            "personality": "sfb",
+            "ideals": "sadfbdsgfb",
+            "bonds": "dsfb",
+            "flaws": "fdgbsadz",
+            "featuresTraits": "sadfbvc",
+            "raceTraits": "xdsg",
+            "classTraits": "b gfdnbgdfsb"
+        },
+        "character stats": {
+            "armorClass": 11,
+            "initiative": 23,
+            "speed": 30,
+            "health": 40,
+            "tempHealth": 33
+        },
+        "magic": {
+            "attacksSpellcasting": "null",
+            "numcantripsKnown": 0,
+            "numspellsKnown": 0,
+            "numfirstlvl": 0,
+            "numsecondlvl": 0,
+            "numthirdlvl": 0,
+            "numfourthlvl": 0,
+            "numfithlvl": 0,
+            "numsixthlvl": 0,
+            "numseventhlvl": 0,
+            "numeigthlvl": 0,
+            "numninethlvl": 0
+        },
+        "items": {
+            "armor": "Leather",
+            "shield": "null",
+            "equipment": "null"
+        },
+        "attributes": {
+            "strength": 12,
+            "dexterity": 12,
+            "constitution": 12,
+            "intelligence": 12,
+            "wisdom": 12,
+            "charisma": 12
+        },
+        "modifiers": {
+            "strengthMod": 1,
+            "dexMod": 1,
+            "conMod": 1,
+            "intelligenceMod": 1,
+            "wisdomMod": 1,
+            "charismaMod": 12,
+            "skill modifiers": {
+                "acrobatics": 1,
+                "animalHandling": 1,
+                "arcana": 1,
+                "athletics": 1,
+                "deception": 1,
+                "history": 1,
+                "insight": 1,
+                "intimidation": 1,
+                "investigation": 1,
+                "medicine": 1,
+                "nature": 1,
+                "perception": 1,
+                "performance": 1,
+                "persuasion": 1,
+                "religion": 1,
+                "sleight": 1,
+                "stealth": 1,
+                "survival": 1
+            },
+            "mod proficiency": {
+                "strengthModProficiency": true,
+                "dexModProficiency": false,
+                "conModProficiency": true,
+                "intelligenceModProficiency": false,
+                "wisdomModProficiency": false,
+                "charismaModProficiency": false,
+                "acrobaticsProficiency": false,
+                "animalHandlingProficiency": false,
+                "arcanaProficiency": true,
+                "athleticsProficiency": false,
+                "deceptionProficiency": false,
+                "historyProficiency": false,
+                "insightProficiency": true,
+                "intimidationProficiency": false,
+                "investigationProficiency": false,
+                "medicineProficiency": false,
+                "natureProficiency": true,
+                "perceptionProficiency": false,
+                "performanceProficiency": false,
+                "persuasionProficiency": false,
+                "religionProficiency": true,
+                "sleightProficiency": false,
+                "stealthProficiency": true,
+                "survivalProficiency": false
+            }
+        },
+        "misc": {
+            "notesTA": "asdfvd"
+        }
+    }
+}

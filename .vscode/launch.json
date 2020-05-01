@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - JSONReader",
+            "request": "launch",
+            "mainClass": "JSONReader",
+            "projectName": "Code_cc3ee680"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - RollDice",
+            "request": "launch",
+            "mainClass": "RollDice",
+            "projectName": "Code_cc3ee680"
+        },
+        {
+            "type": "java",
             "name": "Debug (Launch) - Current File",
             "request": "launch",
             "mainClass": "${file}"

@@ -32,4 +32,3 @@ public class Main {
 		System.out.println(bool);
 	}
 }
-//DID YOU KNOW EVAN IS THE COOLEST

@@ -1,3 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 import org.json.JSONStringer;
 
 public class JSONWriter {
@@ -69,7 +74,7 @@ public class JSONWriter {
     protected boolean sleightProficiency;
     protected boolean stealthProficiency;
     protected boolean survivalProficiency;
-//MEOW
+
     protected int armorClass;
     protected int initiative;
     protected int speed;
@@ -86,7 +91,7 @@ public class JSONWriter {
     protected String otherProf;
     protected String equipment;
     protected String shield;
-    protected String attacksSpellcasting;
+    protected String attacksSpellcasting = "";
     protected String raceTraits;
     protected String classTraits;
     protected String notesTA;
@@ -122,7 +127,7 @@ public class JSONWriter {
             String _shield, String _attacksSpellcasting, String _raceTraits, String _classTraits, String _notesTA,
             int _numcantripsKnown, int _numspellsKnown, int _numfirstlvl, int _numsecondlvl, int _numthirdlvl,
             int _numfourthlvl, int _numfithlvl, int _numsixthlvl, int _numseventhlvl, int _numeigthlvl,
-            int _numninethlvl) {
+            int _numninethlvl, String _fileName) throws FileNotFoundException, UnsupportedEncodingException {
 
         name = _name;
         charClass = _charClass;
@@ -223,13 +228,22 @@ public class JSONWriter {
         numseventhlvl = _numseventhlvl;
         numeigthlvl = _numeigthlvl;
         numninethlvl = _numninethlvl;
-
+        
+        String fileName = _fileName;
         WriteJSON();
+        WriteToFile(fileName);
     }
 
     public JSONWriter() {
         WriteJSON();
         System.out.println(myString);
+    }
+
+    public void WriteToFile(String fileName) throws FileNotFoundException, UnsupportedEncodingException {
+        File file = new File(fileName + ".json");
+        PrintWriter writer = new PrintWriter(fileName + ".json");
+        writer.println(myString);
+        writer.close();
     }
 
     public void WriteJSON() {
@@ -319,9 +333,9 @@ public class JSONWriter {
                     .endObject()// items object
 
                     .key("attributes").object()
-                        .key("streangth")
+                        .key("strength")
                             .value(strength)
-                        .key("dextarity")
+                        .key("dexterity")
                             .value(dex)
                         .key("constitution")
                             .value(con)
