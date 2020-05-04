@@ -20,6 +20,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -100,6 +101,7 @@ public class CharacterSheetV3 extends JFrame {
    private JLabel wisdom;
    private JLabel charisma;
 
+   private JLabel savingThrows;
    private JLabel strengthMod;
    private JLabel dexMod;
    private JLabel conMod;
@@ -107,7 +109,6 @@ public class CharacterSheetV3 extends JFrame {
    private JLabel wisdomMod;
    private JLabel charismaMod;
 
-   private JLabel savingThrows;
    private JLabel skills;
    private JLabel acrobatics;
    private JLabel animalHandling;
@@ -146,6 +147,7 @@ public class CharacterSheetV3 extends JFrame {
 
    JLabel empty1;
    JLabel skillField;
+   JLabel savingThrowField;
 
    JLabel langLabel;
    JLabel equipmentLabel;
@@ -303,7 +305,7 @@ public class CharacterSheetV3 extends JFrame {
    private int _wisdom;
    private int _charisma;
    private int _level;
-   private int _health; 
+   private int _health;
    private int _ac = 0;
    private int _initiative;
    private int _speed;
@@ -344,7 +346,7 @@ public class CharacterSheetV3 extends JFrame {
    private int _numeigthlvl;
    private int _numninethlvl;
 
-   private int localLevelTracker = 0;
+   private int localLevelTracker = 1;
 
    /**
     * @category boolean's
@@ -400,7 +402,28 @@ public class CharacterSheetV3 extends JFrame {
    protected boolean stealthProficiency;
    protected boolean survivalProficiency;
 
-   private boolean lvlOneUpdateYS = false;
+   protected boolean lvlOne = false;
+   protected boolean lvlTwo = false;
+   protected boolean lvlThree = false;
+   protected boolean lvlFour = false;
+   protected boolean lvlFive = false;
+   protected boolean lvlSix = false;
+   protected boolean lvlSeven = false;
+   protected boolean lvlEight = false;
+   protected boolean lvlNine = false;
+   protected boolean lvlTen = false;
+   protected boolean lvlEleven = false;
+   protected boolean lvlTwelve = false;
+   protected boolean lvlThirteen = false;
+   protected boolean lvlFourteen = false;
+   protected boolean lvlFifteen = false;
+   protected boolean lvlSixteen = false;
+   protected boolean lvlSeventeen = false;
+   protected boolean lvlEighteen = false;
+   protected boolean lvlNineteen = false;
+   protected boolean lvlTwenty = false;
+
+   protected boolean armorRST = false;
 
    public CharacterSheetV3(String __name, String __charClass, int __level, String __alignment, String __race,
          String __gender, String __description, String __personality, String __ideals, String __bonds, String __flaws,
@@ -762,10 +785,13 @@ public class CharacterSheetV3 extends JFrame {
       temp1 = new JPanel();
       visualInterir = new JPanel();
       visualExterior = new JPanel();
+      JPanel p4s = new JPanel();
+      JPanel notesJPanel = new JPanel();
+      JPanel filPanel= new JPanel();
 
       file = new JMenu("File");
       open = new JMenuItem("Open File");
-      update = new JMenuItem("Update File");
+      update = new JMenuItem("Update");
       save = new JMenuItem("Save File");
       lvlUp = new JMenuItem("Level Up");
       lvlDown = new JMenuItem("Level Down");
@@ -779,7 +805,7 @@ public class CharacterSheetV3 extends JFrame {
       p6 = new JPanel(new GridLayout(0, 3));
       p7 = new JPanel(new GridLayout(0, 2));
 
-      mb.setBounds(0, 0, 30, 20);
+      mb.setBounds(0, 0, 260, 20);
 
       stBox = new JCheckBox("");
       dexBox = new JCheckBox("");
@@ -856,6 +882,8 @@ public class CharacterSheetV3 extends JFrame {
       speed = new JLabel("Speed: ", JLabel.RIGHT);
       health = new JLabel("Max Health Points: ", JLabel.RIGHT);
       tempHealth = new JLabel("Temp. Health Points: ", JLabel.RIGHT);
+      savingThrows = new JLabel("Saving Throws: ", JLabel.CENTER);
+      savingThrowField = new JLabel("", JLabel.RIGHT);
       strengthMod = new JLabel("Strength: ", JLabel.RIGHT);
       dexMod = new JLabel("Dexterity: ", JLabel.RIGHT);
       conMod = new JLabel("Constitution: ", JLabel.RIGHT);
@@ -975,6 +1003,7 @@ public class CharacterSheetV3 extends JFrame {
       sleightField.setEditable(false);
       stealthField.setEditable(false);
       surField.setEditable(false);
+
       levelField.setText("1");
 
       /**
@@ -1027,19 +1056,50 @@ public class CharacterSheetV3 extends JFrame {
       // end of p3
 
       // All components for p4
+      JPanel x1 = new JPanel();
+      x1.setPreferredSize(new Dimension(2000, 500));
+      x1.setMaximumSize(new Dimension(2000, 700));
+      classTraits.setPreferredSize(new Dimension(2000, 500));
+      classTraits.setMaximumSize(new Dimension(2000, 700));
+      x1.add(classTraits);
 
-      p4.add(equipment); // JTextArea
-      p4.add(otherProf); // JTextArea
-      p4.add(attacksSpellcasting); // JTextArea
-      p4.add(raceTraits); // JTextArea
-      p4.add(classTraits); // JTextArea
-      p4.add(notesTA); // JTextArea
-      p4.add(langLabel); // JLabel
-      p4.add(equipmentLabel); // JLabel
-      p4.add(attackLabel); // JLabel
-      p4.add(raceLabel); // JLabel
-      p4.add(classLabel); // JLabel
-      p4.add(notesLabel); // JLabel
+      JPanel x2 = new JPanel();
+      x2.setPreferredSize(new Dimension(1000, 400));
+      x2.setMaximumSize(new Dimension(2000, 700));
+      raceTraits.setPreferredSize(new Dimension(1000, 400));
+      raceTraits.setMaximumSize(new Dimension(2000, 700));
+      x2.add(raceTraits);
+
+      JPanel x3 = new JPanel();
+      x3.setPreferredSize(new Dimension(1000, 400));
+      x3.setMaximumSize(new Dimension(2000, 700));
+      otherProf.setPreferredSize(new Dimension(1000, 400));
+      otherProf.setMaximumSize(new Dimension(2000, 700));
+      x3.add(otherProf);
+
+      JScrollPane scroll2 = new JScrollPane(x3, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      JScrollPane scroll3 = new JScrollPane(x2, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      JScrollPane scroll4 = new JScrollPane(x1, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      scroll2.setPreferredSize(new Dimension(600, 300));
+      scroll2.setMaximumSize(new Dimension(600, 500));
+      scroll3.setPreferredSize(new Dimension(600, 300));
+      scroll3.setMinimumSize(new Dimension(600, 300));
+      scroll3.setMaximumSize(new Dimension(600, 500));
+      scroll4.setPreferredSize(new Dimension(600, 300));
+      scroll4.setMaximumSize(new Dimension(600, 500));
+
+      p4.setLayout(new BorderLayout());
+      p4.add(scroll2, BorderLayout.WEST);
+      p4.add(scroll3, BorderLayout.CENTER);
+      p4.add(scroll4, BorderLayout.EAST);
+      
+
+      p4s.setLayout(new BorderLayout());
+      p4s.add(p4, BorderLayout.NORTH);
+      p4s.add(langLabel, BorderLayout.WEST); // JLabel
+      p4s.add(raceLabel, BorderLayout.CENTER); // JLabel
+      p4s.add(classLabel, BorderLayout.EAST); // JLabel
+      //p4.add(notesLabel); // JLabel
       // end of p4
 
       // All components for p7
@@ -1063,6 +1123,8 @@ public class CharacterSheetV3 extends JFrame {
       // end of p7
 
       // All components for p6
+      //p6.add(savingThrows); // JLabel
+      //p6.add(savingThrowField);
       p6.add(strengthMod); // JLabel
       p6.add(strengthFieldMod); // JTextField
       p6.add(stBox); // JCheckBox
@@ -1147,12 +1209,12 @@ public class CharacterSheetV3 extends JFrame {
       /**
        * Assemble GUI
        */
-      file.add(update);
       file.add(save);
       file.add(open);
-      file.add(lvlUp);
-      file.add(lvlDown);
       mb.add(file);
+      mb.add(update);
+      mb.add(lvlUp);
+      mb.add(lvlDown);
       top.add(menu, BorderLayout.NORTH);
       top.add(p1, BorderLayout.CENTER);
       visualInterir.setLayout(new BoxLayout(visualInterir, BoxLayout.PAGE_AXIS));
@@ -1165,14 +1227,31 @@ public class CharacterSheetV3 extends JFrame {
       temp1.add(p5);
       temp1.setBorder(BorderFactory.createTitledBorder(""));
       visualInterir.add(temp1);
-      p4.setPreferredSize(new Dimension(1350, 100));
-      p4.setMaximumSize(new Dimension(1350, 600));
-      visualInterir.add(p4);
+      p4.setPreferredSize(new Dimension(1200, 150));
+      p4.setMaximumSize(new Dimension(1900, 250));
+      p4s.setPreferredSize(new Dimension(1200, 250));
+      p4s.setMaximumSize(new Dimension(1900, 250));
+      visualInterir.add(p4s);
       p3.setAlignmentX(Component.LEFT_ALIGNMENT);
       p3.setPreferredSize(new Dimension(450, 800));
       p3.setMaximumSize(new Dimension(450, 1000));
       visualInterir.add(p3);
-      visualExterior.setSize(1400, 600);
+      notesJPanel.setPreferredSize(new Dimension(1000, 400));
+      notesJPanel.setMaximumSize(new Dimension(2000, 700));
+      notesTA.setPreferredSize(new Dimension(1000, 400));
+      notesTA.setMaximumSize(new Dimension(2000, 700));
+      notesJPanel.setLayout(new BorderLayout());
+      filPanel.setPreferredSize(new Dimension(50, 50));
+      notesJPanel.add(notesLabel, BorderLayout.NORTH);
+      notesJPanel.add(notesTA, BorderLayout.EAST);
+      JScrollPane notesJScrollPane = new JScrollPane(notesJPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+      notesJScrollPane.setBorder(BorderFactory.createTitledBorder(""));
+      notesJScrollPane.setPreferredSize(new Dimension(600, 300));
+      notesJScrollPane.setMaximumSize(new Dimension(600, 500));
+      notesJScrollPane.setAlignmentY(Component.RIGHT_ALIGNMENT);
+      notesJScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
+      visualInterir.add(notesJScrollPane);
+      visualExterior.setSize(1500, 600);
       visualExterior.setLayout(new BorderLayout());
       visualExterior.add(mb);
       visualExterior.add(visualInterir, BorderLayout.CENTER);
@@ -1247,14 +1326,13 @@ public class CharacterSheetV3 extends JFrame {
          @Override
          public void actionPerformed(ActionEvent e) {
 
-            lvlOneUpdateYS = true;
-
             stBoxBool = stBox.isSelected();
             dexBoxBool = dexBox.isSelected();
             conBoxBool = conBox.isSelected();
             intBoxBool = intBox.isSelected();
             wisBoxBool = wisBox.isSelected();
             charBoxBool = charBox.isSelected();
+
             acroBoxBool = acroBox.isSelected();
             aHBoxBool = aHBox.isSelected();
             arcBoxBool = arcBox.isSelected();
@@ -1459,11 +1537,6 @@ public class CharacterSheetV3 extends JFrame {
             }
 
             try {
-               _strengthMod = Integer.parseInt(strengthFieldMod.getText());
-            } catch (NumberFormatException nfe) {
-            }
-
-            try {
                _description = descripField.getText();
             } catch (NumberFormatException nfe) {
             }
@@ -1518,7 +1591,12 @@ public class CharacterSheetV3 extends JFrame {
             }
 
             logic.update(_charClass, _level, _race, _strength, _dex, _con, _intelligence, _wisdom, _charisma,
-                  _equipment, _armor, _health, _ac, _sheild, localLevelTracker);
+                  _equipment, _armor, _health, _ac, _sheild, localLevelTracker, lvlOne, lvlTwo, lvlThree, lvlFour,
+                  lvlFive, lvlSix, lvlSeven, lvlEight, lvlNine, lvlTen, lvlEleven, lvlTwelve, lvlThirteen, lvlFourteen,
+                  lvlFifteen, lvlSixteen, lvlSeventeen, lvlEighteen, lvlNineteen, lvlTwenty, armorRST, acroBoxBool,
+                  aHBoxBool, arcBoxBool, athBoxBool, decBoxBool, hisBoxBool, insightBoxBool, intiBoxBool, invesBoxBool,
+                  medBoxBool, natureBoxBool, perBoxBool, perfBoxBool, persBoxBool, relBoxBool, sleightBoxBool,
+                  stealthBoxBool, surBoxBool);
 
             logic.RaceSelect();
 
@@ -1530,53 +1608,116 @@ public class CharacterSheetV3 extends JFrame {
             _intelligence = logic.intelligence;
             _wisdom = logic.wisdom;
             _charisma = logic.charisma;
+            //
             _ac = logic.armorClass;
             _initiative = logic.initiative;
             _speed = logic.speed;
+            //
             _strengthMod = logic.strengthMod;
             _dexMod = logic.dexMod;
             _conMod = logic.conMod;
             _intelligenceMod = logic.intelligenceMod;
             _wisdomMod = logic.wisdomMod;
             _charismaMod = logic.charismaMod;
-            _acrobatics = logic.acrobatics;
-            _animalHandling = logic.animalHandling;
-            _arcana = logic.arcana;
-            _athletics = logic.athletics;
-            _deception = logic.deception;
-            _history = logic.history;
-            _insight = logic.insight;
-            _intimidation = logic.intimidation;
-            _investigation = logic.investigation;
-            _medicine = logic.medicine;
-            _nature = logic.nature;
-            _perception = logic.perception;
-            _performance = logic.performance;
-            _persuasion = logic.persuasion;
-            _religion = logic.religion;
-            _sleight = logic.sleight;
-            _stealth = logic.stealth;
-            _survival = logic.survival;
+            //
+            _acrobatics = logic.dexMod;
+            _animalHandling = logic.wisdomMod;
+            _arcana = logic.intelligenceMod;
+            _athletics = logic.strengthMod;
+            _deception = logic.charismaMod;
+            _history = logic.intelligenceMod;
+            _insight = logic.wisdomMod;
+            _intimidation = logic.charismaMod;
+            _investigation = logic.intelligenceMod;
+            _medicine = logic.wisdomMod;
+            _nature = logic.intelligenceMod;
+            _perception = logic.wisdomMod;
+            _performance = logic.charismaMod;
+            _persuasion = logic.charismaMod;
+            _religion = logic.intelligenceMod;
+            _sleight = logic.dexMod;
+            _stealth = logic.dexMod;
+            _survival = logic.wisdomMod;
+
+            stBoxBool = stBox.isSelected();
+            dexBoxBool = dexBox.isSelected();
+            conBoxBool = conBox.isSelected();
+            intBoxBool = intBox.isSelected();
+            wisBoxBool = wisBox.isSelected();
+            charBoxBool = charBox.isSelected();
+
+            acroBoxBool = acroBox.isSelected();
+            aHBoxBool = aHBox.isSelected();
+            arcBoxBool = arcBox.isSelected();
+            athBoxBool = athBox.isSelected();
+            decBoxBool = decBox.isSelected();
+            hisBoxBool = hisBox.isSelected();
+            insightBoxBool = insightBox.isSelected();
+            intiBoxBool = intiBox.isSelected();
+            invesBoxBool = invesBox.isSelected();
+            medBoxBool = medBox.isSelected();
+            natureBoxBool = natureBox.isSelected();
+            perBoxBool = perBox.isSelected();
+            perfBoxBool = perfBox.isSelected();
+            persBoxBool = persBox.isSelected();
+            relBoxBool = relBox.isSelected();
+            sleightBoxBool = sleightBox.isSelected();
+            stealthBoxBool = stealthBox.isSelected();
+            surBoxBool = surBox.isSelected();
 
             speedField.setText(String.valueOf(_speed));
             armorClassField.setText(String.valueOf(_ac));
             healthField.setText(String.valueOf(_health));
 
-            strengthField.setText(String.valueOf(_strength));
-            dexField.setText(String.valueOf(_dex));
-            conField.setText(String.valueOf(_con));
-            intField.setText(String.valueOf(_intelligence));
-            wisField.setText(String.valueOf(_wisdom));
-            charField.setText(String.valueOf(_charisma));
+            if (_strength > 30) {
+               strengthField.setText(String.valueOf(30));
+               logic.strength = 30;
+            } else {
+               strengthField.setText(String.valueOf(_strength));
+            }
+            if (_dex > 30) {
+               dexField.setText(String.valueOf(30));
+               logic.dex = 30;
+            } else {
+               dexField.setText(String.valueOf(_dex));
+            }
+            if (_con > 30) {
+               conField.setText(String.valueOf(30));
+               logic.con = 30;
+            } else {
+               conField.setText(String.valueOf(_con));
+            }
+            if (_intelligence > 30) {
+               intField.setText(String.valueOf(30));
+               logic.intelligence = 30;
+            } else {
+               intField.setText(String.valueOf(_intelligence));
+            }
+            if (_wisdom > 30) {
+               wisField.setText(String.valueOf(30));
+               logic.wisdom = 30;
+            } else {
+               wisField.setText(String.valueOf(_wisdom));
+            }
+            if (_charisma > 30) {
+               charField.setText(String.valueOf(30));
+               logic.charisma = 30;
+            } else {
+               charField.setText(String.valueOf(_charisma));
+            }
 
             if (_strengthMod < 0) {
                if (stBoxBool == true) {
                   _strengthMod = _strengthMod + logic.proficiencyBonus;
-                  strengthFieldMod.setText(String.valueOf(_strengthMod));
+                  if (_strengthMod < 0) {
+                     strengthFieldMod.setText(String.valueOf(_strengthMod));
+                  } else if (_strengthMod > 0) {
+                     strengthFieldMod.setText("+" + String.valueOf(_strengthMod));
+                  }
                } else {
                   strengthFieldMod.setText(String.valueOf(_strengthMod));
                }
-            } else {
+            } else if (_strengthMod > 0) {
                if (stBoxBool == true) {
                   _strengthMod = _strengthMod + logic.proficiencyBonus;
                   strengthFieldMod.setText("+" + String.valueOf(_strengthMod));
@@ -1588,11 +1729,15 @@ public class CharacterSheetV3 extends JFrame {
             if (_dexMod < 0) {
                if (dexBoxBool == true) {
                   _dexMod = _dexMod + logic.proficiencyBonus;
-                  dexFieldMod.setText(String.valueOf(_dexMod));
+                  if (_dexMod < 0) {
+                     dexFieldMod.setText(String.valueOf(_dexMod));
+                  } else if (_dexMod > 0) {
+                     dexFieldMod.setText("+" + String.valueOf(_dexMod));
+                  }
                } else {
                   dexFieldMod.setText(String.valueOf(_dexMod));
                }
-            } else {
+            } else if (_dexMod > 0) {
                if (dexBoxBool == true) {
                   _dexMod = _dexMod + logic.proficiencyBonus;
                   dexFieldMod.setText("+" + String.valueOf(_dexMod));
@@ -1602,69 +1747,223 @@ public class CharacterSheetV3 extends JFrame {
             }
 
             if (_conMod < 0) {
-               conFieldMod.setText(String.valueOf(_conMod));
-            } else {
-               conFieldMod.setText("+" + String.valueOf(_conMod));
+               if (conBoxBool == true) {
+                  _conMod = _conMod + logic.proficiencyBonus;
+                  if (_conMod < 0) {
+                     conFieldMod.setText(String.valueOf(_conMod));
+                  } else if (_conMod > 0) {
+                     conFieldMod.setText("+" + String.valueOf(_conMod));
+                  }
+               } else {
+                  conFieldMod.setText(String.valueOf(_conMod));
+               }
+            } else if (_conMod > 0) {
+               if (conBoxBool == true) {
+                  _conMod = _conMod + logic.proficiencyBonus;
+                  conFieldMod.setText("+" + String.valueOf(_conMod));
+               } else {
+                  conFieldMod.setText("+" + String.valueOf(_conMod));
+               }
             }
 
             if (_intelligenceMod < 0) {
-               intelligenceFieldMod.setText(String.valueOf(_intelligenceMod));
-            } else {
-               intelligenceFieldMod.setText("+" + String.valueOf(_intelligenceMod));
+               if (intBoxBool == true) {
+                  _intelligenceMod = _intelligenceMod + logic.proficiencyBonus;
+                  if (_intelligenceMod < 0) {
+                     intelligenceFieldMod.setText(String.valueOf(_intelligenceMod));
+                  } else if (_intelligenceMod > 0) {
+                     intelligenceFieldMod.setText("+" + String.valueOf(_intelligenceMod));
+                  }
+               } else {
+                  intelligenceFieldMod.setText(String.valueOf(_intelligenceMod));
+               }
+            } else if (_intelligenceMod > 0) {
+               if (intBoxBool == true) {
+                  _intelligenceMod = _intelligenceMod + logic.proficiencyBonus;
+                  intelligenceFieldMod.setText("+" + String.valueOf(_intelligenceMod));
+               } else {
+                  intelligenceFieldMod.setText("+" + String.valueOf(_intelligenceMod));
+               }
             }
 
             if (_wisdomMod < 0) {
-               wisdomFieldMod.setText(String.valueOf(_wisdomMod));
-            } else {
-               wisdomFieldMod.setText("+" + String.valueOf(_wisdomMod));
+               if (wisBoxBool == true) {
+                  _wisdomMod = _wisdomMod + logic.proficiencyBonus;
+                  if (_wisdomMod < 0) {
+                     wisdomFieldMod.setText(String.valueOf(_wisdomMod));
+                  } else if (_wisdomMod > 0) {
+                     wisdomFieldMod.setText("+" + String.valueOf(_wisdomMod));
+                  }
+               } else {
+                  wisdomFieldMod.setText(String.valueOf(_wisdomMod));
+               }
+            } else if (_wisdomMod > 0) {
+               if (wisBoxBool == true) {
+                  _wisdomMod = _wisdomMod + logic.proficiencyBonus;
+                  wisdomFieldMod.setText("+" + String.valueOf(_wisdomMod));
+               } else {
+                  wisdomFieldMod.setText("+" + String.valueOf(_wisdomMod));
+               }
             }
 
             if (_charismaMod < 0) {
-               charismaFieldMod.setText(String.valueOf(_charismaMod));
-            } else {
-               charismaFieldMod.setText("+" + String.valueOf(_charismaMod));
+               if (charBoxBool == true) {
+                  _charismaMod = _charismaMod + logic.proficiencyBonus;
+                  if (_charismaMod < 0) {
+                     charismaFieldMod.setText(String.valueOf(_charismaMod));
+                  } else if (_charismaMod > 0) {
+                     charismaFieldMod.setText("+" + String.valueOf(_charismaMod));
+                  }
+               } else {
+                  charismaFieldMod.setText(String.valueOf(_charismaMod));
+               }
+            } else if (_charismaMod > 0) {
+               if (charBoxBool == true) {
+                  _charismaMod = _charismaMod + logic.proficiencyBonus;
+                  charismaFieldMod.setText("+" + String.valueOf(_charismaMod));
+               } else {
+                  charismaFieldMod.setText("+" + String.valueOf(_charismaMod));
+               }
             }
-
+            ////////////////////////////////////////////////////////////////////////////////////////////
             if (_acrobatics < 0) {
-               acroField.setText(String.valueOf(_acrobatics));
-            } else {
-               acroField.setText("+" + String.valueOf(_acrobatics));
+               if (acroBoxBool == true) {
+                  _acrobatics = _acrobatics + logic.proficiencyBonus;
+                  if (_acrobatics < 0) {
+                     acroField.setText(String.valueOf(_acrobatics));
+                  } else if (_acrobatics > 0) {
+                     acroField.setText("+" + String.valueOf(_acrobatics));
+                  }
+               } else {
+                  acroField.setText(String.valueOf(_acrobatics));
+               }
+            } else if (_acrobatics > 0) {
+               if (acroBoxBool == true) {
+                  _acrobatics = _acrobatics + logic.proficiencyBonus;
+                  acroField.setText("+" + String.valueOf(_acrobatics));
+               } else {
+                  acroField.setText("+" + String.valueOf(_acrobatics));
+               }
             }
 
             if (_animalHandling < 0) {
-               aHField.setText(String.valueOf(_animalHandling));
-            } else {
-               aHField.setText("+" + String.valueOf(_animalHandling));
+               if (aHBoxBool == true) {
+                  _animalHandling = _animalHandling + logic.proficiencyBonus;
+                  if (_animalHandling < 0) {
+                     aHField.setText(String.valueOf(_animalHandling));
+                  } else if (_animalHandling > 0) {
+                     aHField.setText("+" + String.valueOf(_animalHandling));
+                  }
+               } else {
+                  aHField.setText(String.valueOf(_animalHandling));
+               }
+            } else if (_animalHandling > 0) {
+               if (aHBoxBool == true) {
+                  _animalHandling = _animalHandling + logic.proficiencyBonus;
+                  aHField.setText("+" + String.valueOf(_animalHandling));
+               } else {
+                  aHField.setText("+" + String.valueOf(_animalHandling));
+               }
             }
 
             if (_arcana < 0) {
-               arcField.setText(String.valueOf(_arcana));
-            } else {
-               arcField.setText("+" + String.valueOf(_arcana));
+               if (arcBoxBool == true) {
+                  _arcana = _arcana + logic.proficiencyBonus;
+                  if (_arcana < 0) {
+                     arcField.setText(String.valueOf(_arcana));
+                  } else if (_arcana > 0) {
+                     arcField.setText("+" + String.valueOf(_arcana));
+                  }
+               } else {
+                  arcField.setText(String.valueOf(_arcana));
+               }
+            } else if (_arcana > 0) {
+               if (arcBoxBool == true) {
+                  _arcana = _arcana + logic.proficiencyBonus;
+                  arcField.setText("+" + String.valueOf(_arcana));
+               } else {
+                  arcField.setText("+" + String.valueOf(_arcana));
+               }
             }
 
             if (_athletics < 0) {
-               athField.setText(String.valueOf(_athletics));
-            } else {
-               athField.setText("+" + String.valueOf(_athletics));
+               if (athBoxBool == true) {
+                  _athletics = _athletics + logic.proficiencyBonus;
+                  if (_athletics < 0) {
+                     athField.setText(String.valueOf(_athletics));
+                  } else if (_athletics > 0) {
+                     athField.setText("+" + String.valueOf(_athletics));
+                  }
+               } else {
+                  athField.setText(String.valueOf(_athletics));
+               }
+            } else if (_athletics > 0) {
+               if (athBoxBool == true) {
+                  _athletics = _athletics + logic.proficiencyBonus;
+                  athField.setText("+" + String.valueOf(_athletics));
+               } else {
+                  athField.setText("+" + String.valueOf(_athletics));
+               }
             }
 
             if (_deception < 0) {
-               decField.setText(String.valueOf(_deception));
-            } else {
-               decField.setText("+" + String.valueOf(_deception));
+               if (decBoxBool == true) {
+                  _deception = _deception + logic.proficiencyBonus;
+                  if (_deception < 0) {
+                     decField.setText(String.valueOf(_deception));
+                  } else if (_deception > 0) {
+                     decField.setText("+" + String.valueOf(_deception));
+                  }
+               } else {
+                  decField.setText(String.valueOf(_deception));
+               }
+            } else if (_deception > 0) {
+               if (decBoxBool == true) {
+                  _deception = _deception + logic.proficiencyBonus;
+                  decField.setText("+" + String.valueOf(_deception));
+               } else {
+                  decField.setText("+" + String.valueOf(_deception));
+               }
             }
 
             if (_history < 0) {
-               hisField.setText(String.valueOf(_history));
-            } else {
-               hisField.setText("+" + String.valueOf(_history));
+               if (hisBoxBool == true) {
+                  _history = _history + logic.proficiencyBonus;
+                  if (_history < 0) {
+                     hisField.setText(String.valueOf(_history));
+                  } else if (_history > 0) {
+                     hisField.setText("+" + String.valueOf(_history));
+                  }
+               } else {
+                  hisField.setText(String.valueOf(_history));
+               }
+            } else if (_history > 0) {
+               if (hisBoxBool == true) {
+                  _history = _history + logic.proficiencyBonus;
+                  hisField.setText("+" + String.valueOf(_history));
+               } else {
+                  hisField.setText("+" + String.valueOf(_history));
+               }
             }
 
             if (_insight < 0) {
-               insightField.setText(String.valueOf(_insight));
-            } else {
-               insightField.setText("+" + String.valueOf(_insight));
+               if (insightBoxBool == true) {
+                  _insight = _insight + logic.proficiencyBonus;
+                  if (_insight < 0) {
+                     insightField.setText(String.valueOf(_insight));
+                  } else if (_insight > 0) {
+                     insightField.setText("+" + String.valueOf(_insight));
+                  }
+               } else {
+                  insightField.setText(String.valueOf(_insight));
+               }
+            } else if (_insight > 0) {
+               if (insightBoxBool == true) {
+                  _insight = _insight + logic.proficiencyBonus;
+                  insightField.setText("+" + String.valueOf(_insight));
+               } else {
+                  insightField.setText("+" + String.valueOf(_insight));
+               }
             }
 
             if (_intimidation < 0) {
@@ -1672,70 +1971,261 @@ public class CharacterSheetV3 extends JFrame {
             } else {
                intiField.setText("+" + String.valueOf(_intimidation));
             }
+            if (_intimidation < 0) {
+               if (intiBoxBool == true) {
+                  _intimidation = _intimidation + logic.proficiencyBonus;
+                  if (_intimidation < 0) {
+                     intiField.setText(String.valueOf(_intimidation));
+                  } else if (_intimidation > 0) {
+                     intiField.setText("+" + String.valueOf(_intimidation));
+                  }
+               } else {
+                  intiField.setText(String.valueOf(_intimidation));
+               }
+            } else if (_intimidation > 0) {
+               if (intiBoxBool == true) {
+                  _intimidation = _intimidation + logic.proficiencyBonus;
+                  intiField.setText("+" + String.valueOf(_intimidation));
+               } else {
+                  intiField.setText("+" + String.valueOf(_intimidation));
+               }
+            }
 
             if (_investigation < 0) {
-               invesField.setText(String.valueOf(_investigation));
-            } else {
-               invesField.setText("+" + String.valueOf(_investigation));
+               if (invesBoxBool == true) {
+                  _investigation = _investigation + logic.proficiencyBonus;
+                  if (_investigation < 0) {
+                     invesField.setText(String.valueOf(_investigation));
+                  } else if (_investigation > 0) {
+                     invesField.setText("+" + String.valueOf(_investigation));
+                  }
+               } else {
+                  invesField.setText(String.valueOf(_investigation));
+               }
+            } else if (_investigation > 0) {
+               if (invesBoxBool == true) {
+                  _investigation = _investigation + logic.proficiencyBonus;
+                  invesField.setText("+" + String.valueOf(_investigation));
+               } else {
+                  invesField.setText("+" + String.valueOf(_investigation));
+               }
             }
 
             if (_medicine < 0) {
-               medField.setText(String.valueOf(_medicine));
-            } else {
-               medField.setText("+" + String.valueOf(_medicine));
+               if (medBoxBool == true) {
+                  _medicine = _medicine + logic.proficiencyBonus;
+                  if (_medicine < 0) {
+                     medField.setText(String.valueOf(_medicine));
+                  } else if (_medicine > 0) {
+                     medField.setText("+" + String.valueOf(_medicine));
+                  }
+               } else {
+                  medField.setText(String.valueOf(_medicine));
+               }
+            } else if (_medicine > 0) {
+               if (medBoxBool == true) {
+                  _medicine = _medicine + logic.proficiencyBonus;
+                  medField.setText("+" + String.valueOf(_medicine));
+               } else {
+                  medField.setText("+" + String.valueOf(_medicine));
+               }
             }
 
             if (_nature < 0) {
-               natureField.setText(String.valueOf(_nature));
-            } else {
-               natureField.setText("+" + String.valueOf(_nature));
+               if (natureBoxBool == true) {
+                  _nature = _nature + logic.proficiencyBonus;
+                  if (_nature < 0) {
+                     natureField.setText(String.valueOf(_nature));
+                  } else if (_nature > 0) {
+                     natureField.setText("+" + String.valueOf(_nature));
+                  }
+               } else {
+                  natureField.setText(String.valueOf(_nature));
+               }
+            } else if (_nature > 0) {
+               if (natureBoxBool == true) {
+                  _nature = _nature + logic.proficiencyBonus;
+                  natureField.setText("+" + String.valueOf(_nature));
+               } else {
+                  natureField.setText("+" + String.valueOf(_nature));
+               }
             }
 
             if (_perception < 0) {
-               perField.setText(String.valueOf(_perception));
-            } else {
-               perField.setText("+" + String.valueOf(_perception));
+               if (perBoxBool == true) {
+                  _perception = _perception + logic.proficiencyBonus;
+                  if (_perception < 0) {
+                     perField.setText(String.valueOf(_perception));
+                  } else if (_perception > 0) {
+                     perField.setText("+" + String.valueOf(_perception));
+                  }
+               } else {
+                  perField.setText(String.valueOf(_perception));
+               }
+            } else if (_perception > 0) {
+               if (perBoxBool == true) {
+                  _perception = _perception + logic.proficiencyBonus;
+                  perField.setText("+" + String.valueOf(_perception));
+               } else {
+                  perField.setText("+" + String.valueOf(_perception));
+               }
             }
 
             if (_performance < 0) {
-               perfField.setText(String.valueOf(_performance));
-            } else {
-               perfField.setText("+" + String.valueOf(_performance));
+               if (perfBoxBool == true) {
+                  _performance = _performance + logic.proficiencyBonus;
+                  if (_performance < 0) {
+                     perfField.setText(String.valueOf(_performance));
+                  } else if (_performance > 0) {
+                     perfField.setText("+" + String.valueOf(_performance));
+                  }
+               } else {
+                  perfField.setText(String.valueOf(_performance));
+               }
+            } else if (_performance > 0) {
+               if (perfBoxBool == true) {
+                  _performance = _performance + logic.proficiencyBonus;
+                  perfField.setText("+" + String.valueOf(_performance));
+               } else {
+                  perfField.setText("+" + String.valueOf(_performance));
+               }
             }
 
             if (_persuasion < 0) {
-               persField.setText(String.valueOf(_persuasion));
-            } else {
-               persField.setText("+" + String.valueOf(_persuasion));
+               if (persBoxBool == true) {
+                  _persuasion = _persuasion + logic.proficiencyBonus;
+                  if (_persuasion < 0) {
+                     persField.setText(String.valueOf(_persuasion));
+                  } else if (_persuasion > 0) {
+                     persField.setText("+" + String.valueOf(_persuasion));
+                  }
+               } else {
+                  persField.setText(String.valueOf(_persuasion));
+               }
+            } else if (_persuasion > 0) {
+               if (persBoxBool == true) {
+                  _persuasion = _persuasion + logic.proficiencyBonus;
+                  persField.setText("+" + String.valueOf(_persuasion));
+               } else {
+                  persField.setText("+" + String.valueOf(_persuasion));
+               }
             }
 
             if (_religion < 0) {
-               relField.setText(String.valueOf(_religion));
-            } else {
-               relField.setText("+" + String.valueOf(_religion));
+               if (relBoxBool == true) {
+                  _religion = _religion + logic.proficiencyBonus;
+                  if (_religion < 0) {
+                     relField.setText(String.valueOf(_religion));
+                  } else if (_religion > 0) {
+                     relField.setText("+" + String.valueOf(_religion));
+                  }
+               } else {
+                  relField.setText(String.valueOf(_religion));
+               }
+            } else if (_religion > 0) {
+               if (relBoxBool == true) {
+                  _religion = _religion + logic.proficiencyBonus;
+                  relField.setText("+" + String.valueOf(_religion));
+               } else {
+                  relField.setText("+" + String.valueOf(_religion));
+               }
             }
 
             if (_sleight < 0) {
-               sleightField.setText(String.valueOf(_sleight));
-            } else {
-               sleightField.setText("+" + String.valueOf(_sleight));
+               if (sleightBoxBool == true) {
+                  _sleight = _sleight + logic.proficiencyBonus;
+                  if (_sleight < 0) {
+                     sleightField.setText(String.valueOf(_sleight));
+                  } else if (_sleight > 0) {
+                     sleightField.setText("+" + String.valueOf(_sleight));
+                  }
+               } else {
+                  sleightField.setText(String.valueOf(_sleight));
+               }
+            } else if (_sleight > 0) {
+               if (sleightBoxBool == true) {
+                  _sleight = _sleight + logic.proficiencyBonus;
+                  sleightField.setText("+" + String.valueOf(_sleight));
+               } else {
+                  sleightField.setText("+" + String.valueOf(_sleight));
+               }
             }
 
             if (_stealth < 0) {
-               stealthField.setText(String.valueOf(_stealth));
-            } else {
-               stealthField.setText("+" + String.valueOf(_stealth));
+               if (stealthBoxBool == true) {
+                  _stealth = _stealth + logic.proficiencyBonus;
+                  if (_stealth < 0) {
+                     stealthField.setText(String.valueOf(_stealth));
+                  } else if (_stealth > 0) {
+                     stealthField.setText("+" + String.valueOf(_stealth));
+                  }
+               } else {
+                  stealthField.setText(String.valueOf(_stealth));
+               }
+            } else if (_stealth > 0) {
+               if (stealthBoxBool == true) {
+                  _stealth = _stealth + logic.proficiencyBonus;
+                  stealthField.setText("+" + String.valueOf(_stealth));
+               } else {
+                  stealthField.setText("+" + String.valueOf(_stealth));
+               }
             }
 
             if (_survival < 0) {
-               surField.setText(String.valueOf(_survival));
-            } else {
-               surField.setText("+" + String.valueOf(_survival));
+               if (surBoxBool == true) {
+                  _survival = _survival + logic.proficiencyBonus;
+                  if (_survival < 0) {
+                     surField.setText(String.valueOf(_survival));
+                  } else if (_survival > 0) {
+                     surField.setText("+" + String.valueOf(_survival));
+                  }
+               } else {
+                  surField.setText(String.valueOf(_survival));
+               }
+            } else if (_survival > 0) {
+               if (surBoxBool == true) {
+                  _survival = _survival + logic.proficiencyBonus;
+                  surField.setText("+" + String.valueOf(_survival));
+               } else {
+                  surField.setText("+" + String.valueOf(_survival));
+               }
+            }
+            String t1 = "Armor Proficiencies: ";
+            for(int i = 0; i < logic.armorProficencies.size(); i++){
+               String local = logic.armorProficencies.get(i);
+               if(i == logic.armorProficencies.size() - 1){
+                  t1 = t1 + local;
+               }else{
+                  t1 = t1 + local + ", ";
+               }
             }
 
-            CharacterSheetLogic LL = new CharacterSheetLogic(_charClass, _level, _race, _strength, _dex, _con,
-                  _intelligence, _wisdom, _charisma);
+            String t2 = "Class Features: ";
+            for(int i = 0; i < logic.classFeatures.length; i++){
+               String local;
+               local = logic.classFeatures[i];
+               if(local != null){
+                  t2 = t2 + "\n   -- " + local;
+               }
+            }
+            classTraits.setText(t2);
 
+            String t3 = "Race Traits: ";
+            for(int i = 0; i < logic.raceTrait.size(); i++){
+               String local = logic.raceTrait.get(i);
+                  t3 = t3 + "\n   -- " + local;
+            }
+            raceTraits.setText(t3);
+
+            String t4 = "Known Languages: ";
+            for(int i = 0; i < logic.languages.size(); i++){
+               String local = logic.languages.get(i);
+               t4 = t4 + "\n   -- " + local;
+            }
+            otherProf.setText(t4);
+
+            lvlOne = true;
+            armorRST = true;
          }
       };
 
@@ -1743,41 +2233,50 @@ public class CharacterSheetV3 extends JFrame {
          @Override
          public void actionPerformed(ActionEvent fexplor) {
             String _fileName;
+
             logic.update(_charClass, _level, _race, _strength, _dex, _con, _intelligence, _wisdom, _charisma,
-                  _equipment, _armor, _health, _ac, _sheild, localLevelTracker);
-                  if (fexplor.getSource() == open) {
-                     JFileChooser fc = new JFileChooser();
-                     int returnVal = fc.showOpenDialog(top);
-      
-                     if (returnVal == JFileChooser.APPROVE_OPTION) {
-                        File fileToSave = fc.getSelectedFile();
-                        // This is where a real application would open the file.
-                        System.out.println("Opening: " + fileToSave.getName() + ".");
-                        _fileName = fileToSave.getName();
-                  
-               
+                  _equipment, _armor, _health, _ac, _sheild, localLevelTracker, lvlOne, lvlTwo, lvlThree, lvlFour,
+                  lvlFive, lvlSix, lvlSeven, lvlEight, lvlNine, lvlTen, lvlEleven, lvlTwelve, lvlThirteen, lvlFourteen,
+                  lvlFifteen, lvlSixteen, lvlSeventeen, lvlEighteen, lvlNineteen, lvlTwenty, armorRST, acroBoxBool,
+                  aHBoxBool, arcBoxBool, athBoxBool, decBoxBool, hisBoxBool, insightBoxBool, intiBoxBool, invesBoxBool,
+                  medBoxBool, natureBoxBool, perBoxBool, perfBoxBool, persBoxBool, relBoxBool, sleightBoxBool,
+                  stealthBoxBool, surBoxBool);
+
+            if (fexplor.getSource() == save) {
+               JFileChooser fc = new JFileChooser();
+               int returnVal = fc.showOpenDialog(top);
+
+               if (returnVal == JFileChooser.APPROVE_OPTION) {
+                  File fileToSave = fc.getSelectedFile();
+                  // This is where a real application would open the file.
+                  System.out.println("Opening: " + fileToSave.getName() + ".");
+                  _fileName = fileToSave.getName();
+
                   try {
-               JSONWriter json = new JSONWriter(_name, _charClass, _level, _alignment, _race, _gender, _description,
-                     _strength, _dex, _con, _intelligence, _wisdom, _charisma, _strengthMod, _dexMod, _conMod,
-                     _intelligenceMod, _wisdomMod, _charismaMod, _acrobatics, _animalHandling, _arcana, _athletics,
-                     _deception, _history, _insight, _intimidation, _investigation, _medicine, _nature, _perception,
-                     _performance, _persuasion, _religion, _sleight, _stealth, _survival, stBoxBool, dexBoxBool,
-                     conBoxBool, intBoxBool, wisBoxBool, charBoxBool, acroBoxBool, aHBoxBool, arcBoxBool, athBoxBool,
-                     decBoxBool, hisBoxBool, insightBoxBool, intiBoxBool, invesBoxBool, medBoxBool, natureBoxBool,
-                     perBoxBool, perfBoxBool, persBoxBool, relBoxBool, sleightBoxBool, stealthBoxBool, surBoxBool, _ac,
-                     _initiative, _speed, _health, _tempHealth, _personality, _ideals, _bonds, _flaws, _featuresTraits,
-                     _armor, _otherProf, _equipment, _sheild, _attacksSpellcasting, _raceTraits, _classTraits, _notesTA,
-                     _numcantripsKnown, _numspellsKnown, _numfirstlvl, _numsecondlvl, _numthirdlvl, _numfourthlvl,
-                     _numfithlvl, _numsixthlvl, _numseventhlvl, _numeigthlvl, _numninethlvl, _fileName);
-            } catch (FileNotFoundException e1) {
-               System.out.println("oll");
-               e1.printStackTrace();
-            } catch (UnsupportedEncodingException e1) {
-               System.out.println("adf1`");
-               e1.printStackTrace();
+                     JSONWriter json = new JSONWriter(_name, _charClass, _level, _alignment, _race, _gender,
+                           _description, _strength, _dex, _con, _intelligence, _wisdom, _charisma, _strengthMod,
+                           _dexMod, _conMod, _intelligenceMod, _wisdomMod, _charismaMod, _acrobatics, _animalHandling,
+                           _arcana, _athletics, _deception, _history, _insight, _intimidation, _investigation,
+                           _medicine, _nature, _perception, _performance, _persuasion, _religion, _sleight, _stealth,
+                           _survival, stBoxBool, dexBoxBool, conBoxBool, intBoxBool, wisBoxBool, charBoxBool,
+                           acroBoxBool, aHBoxBool, arcBoxBool, athBoxBool, decBoxBool, hisBoxBool, insightBoxBool,
+                           intiBoxBool, invesBoxBool, medBoxBool, natureBoxBool, perBoxBool, perfBoxBool, persBoxBool,
+                           relBoxBool, sleightBoxBool, stealthBoxBool, surBoxBool, _ac, _initiative, _speed, _health,
+                           _tempHealth, _personality, _ideals, _bonds, _flaws, _featuresTraits, _armor, _otherProf,
+                           _equipment, _sheild, _attacksSpellcasting, _raceTraits, _classTraits, _notesTA,
+                           _numcantripsKnown, _numspellsKnown, _numfirstlvl, _numsecondlvl, _numthirdlvl, _numfourthlvl,
+                           _numfithlvl, _numsixthlvl, _numseventhlvl, _numeigthlvl, _numninethlvl, _fileName);
+                  } catch (FileNotFoundException e1) {
+                     System.out.println("oll");
+                     e1.printStackTrace();
+                  } catch (UnsupportedEncodingException e1) {
+                     System.out.println("adf1`");
+                     e1.printStackTrace();
+                  }
+               }
             }
-         }
-      }
+            System.out.println("last"); // testing
+
          }
       };
 
@@ -1786,6 +2285,7 @@ public class CharacterSheetV3 extends JFrame {
          public void actionPerformed(ActionEvent fexplor) {
             JSONReader jsr = new JSONReader();
             // Handle open button action.
+            System.out.println(fexplor.getSource()); // testing
             if (fexplor.getSource() == open) {
                JFileChooser fc = new JFileChooser();
                int returnVal = fc.showOpenDialog(top);
@@ -1805,16 +2305,15 @@ public class CharacterSheetV3 extends JFrame {
          public void actionPerformed(ActionEvent lvl) {
 
             int temp = Integer.parseInt(levelField.getText());
-            System.out.println(temp);
-            System.out.println(lvlOneUpdateYS);
-            if(temp == 2){
-               lvlOneUpdateYS = true;
-            }
+            System.out.println(temp); // testing
+            System.out.println(lvlOne); // testing
+
             if (temp < 20) {
                try {
                   levelField.setText(String.valueOf(temp + 1));
-               } catch (NumberFormatException nfe) {}
-                  localLevelTracker ++;
+               } catch (NumberFormatException nfe) {
+               }
+               localLevelTracker++;
                if (temp >= 1) {
                   update.doClick();
                   if (temp == 0) {
@@ -1824,14 +2323,72 @@ public class CharacterSheetV3 extends JFrame {
             } else {
                System.out.println("UvU stop weveling youwu are alwady mwax!!!!");
             }
-            
+            switch (localLevelTracker) {
+               case 2:
+                  lvlTwo = true;
+                  break;
+               case 3:
+                  lvlThree = true;
+                  break;
+               case 4:
+                  lvlFour = true;
+                  break;
+               case 5:
+                  lvlFive = true;
+                  break;
+               case 6:
+                  lvlSix = true;
+                  break;
+               case 7:
+                  lvlSeven = true;
+                  break;
+               case 8:
+                  lvlEight = true;
+                  break;
+               case 9:
+                  lvlNine = true;
+                  break;
+               case 10:
+                  lvlTen = true;
+                  break;
+               case 11:
+                  lvlEleven = true;
+                  break;
+               case 12:
+                  lvlTwelve = true;
+                  break;
+               case 13:
+                  lvlThirteen = true;
+                  break;
+               case 14:
+                  lvlFourteen = true;
+                  break;
+               case 15:
+                  lvlFifteen = true;
+                  break;
+               case 16:
+                  lvlSixteen = true;
+                  break;
+               case 17:
+                  lvlSeventeen = true;
+                  break;
+               case 18:
+                  lvlEighteen = true;
+                  break;
+               case 19:
+                  lvlNineteen = true;
+                  break;
+               case 20:
+                  lvlTwenty = true;
+                  break;
+            }
 
             CharacterSheetLogic LL = new CharacterSheetLogic(_charClass, _level, _race, _strength, _dex, _con,
-                  _intelligence, _wisdom, _charisma);
-                  temp = Integer.parseInt(levelField.getText());
+                  _intelligence, _wisdom, _charisma); // testing
+            temp = Integer.parseInt(levelField.getText());
 
-                  System.out.println(temp);
-            System.out.println(lvlOneUpdateYS);
+            System.out.println(temp); // testing
+            System.out.println(lvlOne); // testing
          }
       };
 
@@ -1840,23 +2397,93 @@ public class CharacterSheetV3 extends JFrame {
          public void actionPerformed(ActionEvent lvl) {
             int temp = Integer.parseInt(levelField.getText());
 
-            if(temp > 1){
+            if (temp > 1) {
                levelField.setText(String.valueOf(temp - 1));
-                  localLevelTracker --;
-               
+               localLevelTracker--;
+
             } else {
                System.out.println("UvU stop weveling youwu are alwady min!!!!");
             }
             update.doClick();
+            switch (localLevelTracker) {
+               case 2:
+                  lvlTwo = false;
+                  break;
+               case 3:
+                  lvlThree = false;
+                  break;
+               case 4:
+                  lvlFour = false;
+                  break;
+               case 5:
+                  lvlFive = false;
+                  break;
+               case 6:
+                  lvlSix = false;
+                  break;
+               case 7:
+                  lvlSeven = false;
+                  break;
+               case 8:
+                  lvlEight = false;
+                  break;
+               case 9:
+                  lvlNine = false;
+                  break;
+               case 10:
+                  lvlTen = false;
+                  break;
+               case 11:
+                  lvlEleven = false;
+                  break;
+               case 12:
+                  lvlTwelve = false;
+                  break;
+               case 13:
+                  lvlThirteen = false;
+                  break;
+               case 14:
+                  lvlFourteen = false;
+                  break;
+               case 15:
+                  lvlFifteen = false;
+                  break;
+               case 16:
+                  lvlSixteen = false;
+                  break;
+               case 17:
+                  lvlSeventeen = false;
+                  break;
+               case 18:
+                  lvlEighteen = false;
+                  break;
+               case 19:
+                  lvlNineteen = false;
+                  break;
+               case 20:
+                  lvlTwenty = false;
+                  break;
+            }
+
          }
       };
-      
+
       ActionListener rstForClassChainge = new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
-            lvlOneUpdateYS = false;
+            lvlOne = false;
             levelField.setText(String.valueOf(1));
-            System.out.println(lvlOneUpdateYS);
+            System.out.println(lvlOne);
+
+         }
+      };
+
+      ActionListener armorReset = new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            armorRST = false;
+            levelField.setText(String.valueOf(1));
+            System.out.println(lvlOne);
 
          }
       };
@@ -1867,6 +2494,7 @@ public class CharacterSheetV3 extends JFrame {
       lvlUp.addActionListener(levelUp);
       lvlDown.addActionListener(levelDown);
       classCombo.addActionListener(rstForClassChainge);
+      armorField.addActionListener(armorReset);
 
    }
 
