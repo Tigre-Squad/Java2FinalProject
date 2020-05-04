@@ -20,7 +20,6 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -2232,7 +2231,7 @@ public class CharacterSheetV3 extends JFrame {
       ActionListener saveListener = new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent fexplor) {
-            String _fileName;
+            String _fileName = "";
 
             logic.update(_charClass, _level, _race, _strength, _dex, _con, _intelligence, _wisdom, _charisma,
                   _equipment, _armor, _health, _ac, _sheild, localLevelTracker, lvlOne, lvlTwo, lvlThree, lvlFour,
@@ -2244,13 +2243,14 @@ public class CharacterSheetV3 extends JFrame {
 
             if (fexplor.getSource() == save) {
                JFileChooser fc = new JFileChooser();
-               int returnVal = fc.showOpenDialog(top);
+               fc.setDialogTitle("Specify a file to save"); 
+               int userSelection = fc.showSaveDialog(top);
 
-               if (returnVal == JFileChooser.APPROVE_OPTION) {
-                  File fileToSave = fc.getSelectedFile();
+               if (userSelection == JFileChooser.APPROVE_OPTION) {
                   // This is where a real application would open the file.
-                  System.out.println("Opening: " + fileToSave.getName() + ".");
-                  _fileName = fileToSave.getName();
+                     File fileToSave = fc.getSelectedFile();
+                     _fileName = fileToSave.getAbsolutePath();
+                     System.out.println("Save as file: " + fileToSave.getAbsolutePath());
 
                   try {
                      JSONWriter json = new JSONWriter(_name, _charClass, _level, _alignment, _race, _gender,
@@ -2294,7 +2294,7 @@ public class CharacterSheetV3 extends JFrame {
                   File file = fc.getSelectedFile();
                   // This is where a real application would open the file.
                   System.out.println("Opening: " + file.getName() + ".");
-                  jsr.Load(file.getName());
+                  jsr.Load(file.getAbsolutePath());
                }
             }
          }

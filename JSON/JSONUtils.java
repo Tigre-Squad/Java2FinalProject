@@ -8,6 +8,7 @@ public class JSONUtils {
 	public static String getJSONStringFromFile(String path) {
 		Scanner scanner;
 		InputStream in = FileHandle.inputStreamFromFile(path);
+		System.out.println(in);
 		scanner = new Scanner(in); // close the scanner
 		String json = scanner.useDelimiter("\\Z").next();
 		scanner.close();
