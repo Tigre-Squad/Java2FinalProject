@@ -58,6 +58,9 @@ public class CharacterSheetV3 extends JFrame {
    private JPanel p3;
    private JPanel p4;
    private JPanel p5;
+   private JPanel p6;
+   private JPanel p7;
+   private JPanel temp1;
    private JPanel visualInterir;
    private JPanel visualExterior;
 
@@ -133,6 +136,23 @@ public class CharacterSheetV3 extends JFrame {
    private JLabel speed;
    private JLabel health;
    private JLabel tempHealth;
+
+   private JLabel descripField;
+   private JLabel personalityLabel;
+   private JLabel idealLabel;
+   private JLabel bondLabel;
+   private JLabel flawLabel;
+   private JLabel ftLabel;
+
+   JLabel empty1;
+   JLabel skillField;
+
+   JLabel langLabel;
+   JLabel equipmentLabel;
+   JLabel attackLabel;
+   JLabel raceLabel;
+   JLabel classLabel;
+   JLabel notesLabel;
 
    /**
     * @category JTextAreas
@@ -226,6 +246,19 @@ public class CharacterSheetV3 extends JFrame {
    private JCheckBox stealthBox;
    private JCheckBox surBox;
 
+   JComboBox armorField;
+   JComboBox SheildField;
+   JComboBox weaponField;
+   JComboBox classCombo;
+   JComboBox raceCombo;
+
+   /**
+    * @category Dimension's
+    */
+   Dimension small;
+   Dimension middleboxes;
+   Dimension statBlock;
+
    /**
     * @category String arrays
     */
@@ -259,7 +292,6 @@ public class CharacterSheetV3 extends JFrame {
    private String _otherProf;
    private String _classTraits;
    private String _notesTA;
-   private String _fileName;
 
    /**
     * @category Integers
@@ -271,9 +303,8 @@ public class CharacterSheetV3 extends JFrame {
    private int _wisdom;
    private int _charisma;
    private int _level;
-   private int _health;
+   private int _health; 
    private int _ac = 0;
-   private int _armorClass;
    private int _initiative;
    private int _speed;
    private int _tempHealth;
@@ -313,6 +344,8 @@ public class CharacterSheetV3 extends JFrame {
    private int _numeigthlvl;
    private int _numninethlvl;
 
+   private int localLevelTracker = 0;
+
    /**
     * @category boolean's
     */
@@ -341,26 +374,53 @@ public class CharacterSheetV3 extends JFrame {
    private boolean stealthBoxBool;
    private boolean surBoxBool;
 
+   protected boolean strengthModProficiency;
+   protected boolean dexModProficiency;
+   protected boolean conModProficiency;
+   protected boolean intelligenceModProficiency;
+   protected boolean wisdomModProficiency;
+   protected boolean charismaModProficiency;
+
+   protected boolean acrobaticsProficiency;
+   protected boolean animalHandlingProficiency;
+   protected boolean arcanaProficiency;
+   protected boolean athleticsProficiency;
+   protected boolean deceptionProficiency;
+   protected boolean historyProficiency;
+   protected boolean insightProficiency;
+   protected boolean intimidationProficiency;
+   protected boolean investigationProficiency;
+   protected boolean medicineProficiency;
+   protected boolean natureProficiency;
+   protected boolean perceptionProficiency;
+   protected boolean performanceProficiency;
+   protected boolean persuasionProficiency;
+   protected boolean religionProficiency;
+   protected boolean sleightProficiency;
+   protected boolean stealthProficiency;
+   protected boolean survivalProficiency;
+
+   private boolean lvlOneUpdateYS = false;
+
    public CharacterSheetV3(String __name, String __charClass, int __level, String __alignment, String __race,
          String __gender, String __description, String __personality, String __ideals, String __bonds, String __flaws,
-         String __featuresTraits, String __raceTraits, String __classTraits, int __armorClass, int __initiative,
-         int __speed, int __health, int __tempHealth, String __attacksSpellcasting, int __numcantripsKnown,
-         int __numspellsKnown, int __numfirstlvl, int __numsecondlvl, int __numthirdlvl, int __numfourthlvl,
-         int __numfithlvl, int __numsixthlvl, int __numseventhlvl, int __numeigthlvl, int __numninethlvl,
-         String __armor, String __shield, String __equipment, int __strength, int __dex, int __con, int __intelligence,
-         int __wisdom, int __charisma, int __strengthMod, int __dexMod, int __conMod, int __intelligenceMod,
-         int __wisdomMod, int __charismaMod, int __acrobatics, int __animalHandling, int __arcana, int __athletics,
-         int __deception, int __history, int __insight, int __intimidation, int __investigation, int __medicine,
-         int __nature, int __perception, int __performance, int __persuasion, int __religion, int __sleight,
-         int __stealth, int __survival, boolean __strengthModProficiency, boolean __dexModProficiency,
-         boolean __conModProficiency, boolean __intelligenceModProficiency, boolean __wisdomModProficiency,
-         boolean __charismaModProficiency, boolean __acrobaticsProficiency, boolean __animalHandlingProficiency,
-         boolean __arcanaProficiency, boolean __athleticsProficiency, boolean __deceptionProficiency,
-         boolean __historyProficiency, boolean __insightProficiency, boolean __intimidationProficiency,
-         boolean __investigationProficiency, boolean __medicineProficiency, boolean __natureProficiency,
-         boolean __perceptionProficiency, boolean __performanceProficiency, boolean __persuasionProficiency,
-         boolean __religionProficiency, boolean __sleightProficiency, boolean __stealthProficiency,
-         boolean __survivalProficiency, String __notesTA) {
+         String __featuresTraits, String __raceTraits, String __classTraits, int __ac, int __initiative, int __speed,
+         int __health, int __tempHealth, String __attacksSpellcasting, int __numcantripsKnown, int __numspellsKnown,
+         int __numfirstlvl, int __numsecondlvl, int __numthirdlvl, int __numfourthlvl, int __numfithlvl,
+         int __numsixthlvl, int __numseventhlvl, int __numeigthlvl, int __numninethlvl, String __armor, String __shield,
+         String __equipment, int __strength, int __dex, int __con, int __intelligence, int __wisdom, int __charisma,
+         int __strengthMod, int __dexMod, int __conMod, int __intelligenceMod, int __wisdomMod, int __charismaMod,
+         int __acrobatics, int __animalHandling, int __arcana, int __athletics, int __deception, int __history,
+         int __insight, int __intimidation, int __investigation, int __medicine, int __nature, int __perception,
+         int __performance, int __persuasion, int __religion, int __sleight, int __stealth, int __survival,
+         boolean __strengthModProficiency, boolean __dexModProficiency, boolean __conModProficiency,
+         boolean __intelligenceModProficiency, boolean __wisdomModProficiency, boolean __charismaModProficiency,
+         boolean __acrobaticsProficiency, boolean __animalHandlingProficiency, boolean __arcanaProficiency,
+         boolean __athleticsProficiency, boolean __deceptionProficiency, boolean __historyProficiency,
+         boolean __insightProficiency, boolean __intimidationProficiency, boolean __investigationProficiency,
+         boolean __medicineProficiency, boolean __natureProficiency, boolean __perceptionProficiency,
+         boolean __performanceProficiency, boolean __persuasionProficiency, boolean __religionProficiency,
+         boolean __sleightProficiency, boolean __stealthProficiency, boolean __survivalProficiency, String __notesTA) {
       /*
        * String name; String charClass; int level; String alignment; String race;
        * String gender; String description; String personality; String ideals; String
@@ -417,7 +477,7 @@ public class CharacterSheetV3 extends JFrame {
       String _featuresTraits = __featuresTraits;
       String _raceTraits = __raceTraits;
       String _classTraits = __classTraits;
-      int _armorClass = __armorClass;
+      int _ac = __ac;
       int _initiative = __initiative;
 
       int _speed = __speed;
@@ -529,6 +589,8 @@ public class CharacterSheetV3 extends JFrame {
       healthField.setText(String.valueOf(logic.health));
       armorClassField.setText(String.valueOf(logic.armorClass));
       speedField.setText(String.valueOf(logic.speed));
+
+      levelField.setText(Integer.toString(_level));
 
       if (_strengthMod < 0) {
          strengthFieldMod.setText(String.valueOf(_strengthMod));
@@ -680,7 +742,6 @@ public class CharacterSheetV3 extends JFrame {
       GUI();
       JFrame myFrame1;
       myFrame1 = new JFrame();
-      myFrame1.setBackground(Color.BLACK);
       myFrame1.setTitle("Character Sheet");
       myFrame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       myFrame1.add(scroll);
@@ -694,487 +755,499 @@ public class CharacterSheetV3 extends JFrame {
    }
 
    public void GUI() {
-      // main frame
 
+      // main frame
       top = new JPanel(new BorderLayout());
       menu = new JPanel();
+      temp1 = new JPanel();
+      visualInterir = new JPanel();
+      visualExterior = new JPanel();
 
       file = new JMenu("File");
       open = new JMenuItem("Open File");
       update = new JMenuItem("Update File");
       save = new JMenuItem("Save File");
       lvlUp = new JMenuItem("Level Up");
-      file.add(update);
-      file.add(save);
-      file.add(open);
-      file.add(lvlUp);
+      lvlDown = new JMenuItem("Level Down");
       mb = new JMenuBar();
-      mb.setBounds(0, 0, 30, 20);
-      mb.add(file);
 
-      // All components for p1
       p1 = new JPanel(new GridLayout(4, 2));
+      p2 = new JPanel(new GridLayout(0, 1));
+      p3 = new JPanel(new GridLayout(0, 1));
+      p4 = new JPanel(new GridLayout(2, 3));
+      p5 = new JPanel(new GridLayout(0, 2));
+      p6 = new JPanel(new GridLayout(0, 3));
+      p7 = new JPanel(new GridLayout(0, 2));
 
-      p1.add(name = new JLabel("Name: ", JLabel.RIGHT));
-      p1.add(nameField = new JTextField(10));
+      mb.setBounds(0, 0, 30, 20);
 
-      p1.add(charClass = new JLabel("Class: ", JLabel.RIGHT));
-      JComboBox classCombo = new JComboBox(classes);
-      p1.add(classCombo);
-      _charClass = (String) classCombo.getSelectedItem();
+      stBox = new JCheckBox("");
+      dexBox = new JCheckBox("");
+      conBox = new JCheckBox("");
+      intBox = new JCheckBox("");
+      wisBox = new JCheckBox("");
+      charBox = new JCheckBox("");
+      acroBox = new JCheckBox("");
+      aHBox = new JCheckBox("");
+      arcBox = new JCheckBox("");
+      athBox = new JCheckBox("");
+      decBox = new JCheckBox("");
+      hisBox = new JCheckBox("");
+      insightBox = new JCheckBox("");
+      intiBox = new JCheckBox("");
+      invesBox = new JCheckBox("");
+      medBox = new JCheckBox("");
+      natureBox = new JCheckBox("");
+      perBox = new JCheckBox("");
+      perfBox = new JCheckBox("");
+      persBox = new JCheckBox("");
+      relBox = new JCheckBox("");
+      sleightBox = new JCheckBox("");
+      stealthBox = new JCheckBox("");
+      surBox = new JCheckBox("");
 
-      p1.add(level = new JLabel("Level: ", JLabel.RIGHT));
-      p1.add(levelField = new JTextField(10));
+      classCombo = new JComboBox(classes);
+      raceCombo = new JComboBox(races);
+      armorField = new JComboBox(armors);
+      SheildField = new JComboBox(shields);
+      weaponField = new JComboBox(weapons);
+
+      small = new Dimension(30, 30);
+      middleboxes = new Dimension(200, 100);
+      statBlock = new Dimension(10, 10);
+
+      charField = new JTextField(5);
+      wisField = new JTextField(5);
+      intField = new JTextField(5);
+      conField = new JTextField(5);
+      dexField = new JTextField(5);
+      strengthField = new JTextField(5);
+
+      empty1 = new JLabel("", JLabel.RIGHT);
+      name = new JLabel("Name: ", JLabel.RIGHT);
+      charClass = new JLabel("Class: ", JLabel.RIGHT);
+      level = new JLabel("Level: ", JLabel.RIGHT);
+      alignment = new JLabel("Alignment: ", JLabel.RIGHT);
+      gender = new JLabel("Gender: ", JLabel.RIGHT);
+      race = new JLabel("Race: ", JLabel.RIGHT);
+      descripField = new JLabel("Description: ", JLabel.RIGHT);
+      strength = new JLabel("Strength: ", JLabel.RIGHT);
+      dex = new JLabel("Dexterity: ", JLabel.RIGHT);
+      con = new JLabel("Constitution: ", JLabel.RIGHT);
+      intelligence = new JLabel("Intelligence: ", JLabel.RIGHT);
+      wisdom = new JLabel("Wisdom: ", JLabel.RIGHT);
+      charisma = new JLabel("Charisma: ", JLabel.RIGHT);
+      personalityLabel = new JLabel("Personality: ", JLabel.RIGHT);
+      idealLabel = new JLabel("Ideals: ", JLabel.RIGHT);
+      bondLabel = new JLabel("Bonds: ", JLabel.RIGHT);
+      flawLabel = new JLabel("Flaws: ", JLabel.RIGHT);
+      ftLabel = new JLabel("Features & Traits: ", JLabel.RIGHT);
+      langLabel = new JLabel("Other Skills and Languages", JLabel.CENTER);
+      equipmentLabel = new JLabel("Equipment", JLabel.CENTER);
+      attackLabel = new JLabel("Attacks and Spellcasting", JLabel.CENTER);
+      raceLabel = new JLabel("Race Traits", JLabel.CENTER);
+      classLabel = new JLabel("Class Traits", JLabel.CENTER);
+      notesLabel = new JLabel("Notes", JLabel.CENTER);
+      armor = new JLabel("Armor: ", JLabel.RIGHT);
+      shield = new JLabel("Sheild: ", JLabel.RIGHT);
+      weapon = new JLabel("Weapons: ", JLabel.RIGHT);
+      armorClass = new JLabel("Armor Class: ", JLabel.RIGHT);
+      intitive = new JLabel("Intitive: ", JLabel.RIGHT);
+      speed = new JLabel("Speed: ", JLabel.RIGHT);
+      health = new JLabel("Max Health Points: ", JLabel.RIGHT);
+      tempHealth = new JLabel("Temp. Health Points: ", JLabel.RIGHT);
+      strengthMod = new JLabel("Strength: ", JLabel.RIGHT);
+      dexMod = new JLabel("Dexterity: ", JLabel.RIGHT);
+      conMod = new JLabel("Constitution: ", JLabel.RIGHT);
+      intelligenceMod = new JLabel("Intelligence: ", JLabel.RIGHT);
+      wisdomMod = new JLabel("Wisdom: ", JLabel.RIGHT);
+      charismaMod = new JLabel("Charisma: ", JLabel.RIGHT);
+      skills = new JLabel("Skills: ", JLabel.CENTER);
+      skillField = new JLabel("", JLabel.RIGHT);
+      acrobatics = new JLabel("Acrobatics: ", JLabel.RIGHT);
+      animalHandling = new JLabel("Animal \nHandling: ", JLabel.RIGHT);
+      arcana = new JLabel("Arcana: ", JLabel.RIGHT);
+      athletics = new JLabel("Atheltics: ", JLabel.RIGHT);
+      deception = new JLabel("Deception: ", JLabel.RIGHT);
+      history = new JLabel("History: ", JLabel.RIGHT);
+      insight = new JLabel("Insight: ", JLabel.RIGHT);
+      intimidation = new JLabel("Intimidation: ", JLabel.RIGHT);
+      investigation = new JLabel("Investigation: ", JLabel.RIGHT);
+      medicine = new JLabel("Medicine: ", JLabel.RIGHT);
+      nature = new JLabel("Nature: ", JLabel.RIGHT);
+      perception = new JLabel("Perception: ", JLabel.RIGHT);
+      performance = new JLabel("Performance: ", JLabel.RIGHT);
+      persuasion = new JLabel("Persuasion: ", JLabel.RIGHT);
+      religion = new JLabel("Religion: ", JLabel.RIGHT);
+      sleight = new JLabel("Sleight Of \nHand: ", JLabel.RIGHT);
+      stealth = new JLabel("Stealth: ", JLabel.RIGHT);
+      survival = new JLabel("Survival: ", JLabel.RIGHT);
+
+      personality = new JTextArea(40, 20);
+      ideals = new JTextArea(40, 20);
+      bonds = new JTextArea(40, 20);
+      flaws = new JTextArea(40, 20);
+      featuresTraits = new JTextArea(40, 20);
+      equipment = new JTextArea(3, 5);
+      otherProf = new JTextArea(3, 5);
+      attacksSpellcasting = new JTextArea(3, 5);
+      raceTraits = new JTextArea(3, 5);
+      classTraits = new JTextArea(3, 5);
+      notesTA = new JTextArea(3, 5);
+      description = new JTextArea(1, 2);
+
+      nameField = new JTextField(10);
+      levelField = new JTextField(10);
+      alignField = new JTextField(10);
+      genderField = new JTextField(10);
+      armorClassField = new JTextField(3);
+      initField = new JTextField(3);
+      speedField = new JTextField(3);
+      healthField = new JTextField(3);
+      tempHealthField = new JTextField(3);
+      strengthFieldMod = new JTextField(5);
+      dexFieldMod = new JTextField(5);
+      conFieldMod = new JTextField(5);
+      intelligenceFieldMod = new JTextField(5);
+      wisdomFieldMod = new JTextField(5);
+      charismaFieldMod = new JTextField(5);
+      acroField = new JTextField(3);
+      aHField = new JTextField(3);
+      arcField = new JTextField(3);
+      athField = new JTextField(3);
+      decField = new JTextField(3);
+      hisField = new JTextField(3);
+      insightField = new JTextField(3);
+      intiField = new JTextField(3);
+      invesField = new JTextField(3);
+      medField = new JTextField(3);
+      natureField = new JTextField(3);
+      perField = new JTextField(3);
+      perfField = new JTextField(3);
+      persField = new JTextField(3);
+      relField = new JTextField(3);
+      sleightField = new JTextField(3);
+      stealthField = new JTextField(3);
+      surField = new JTextField(3);
+
+      charField.setPreferredSize(new Dimension(small));
+      wisField.setPreferredSize(new Dimension(small));
+      intField.setPreferredSize(new Dimension(small));
+      conField.setPreferredSize(new Dimension(small));
+      dexField.setPreferredSize(new Dimension(small));
+      strengthField.setPreferredSize(new Dimension(small));
+      equipment.setPreferredSize(new Dimension(middleboxes));
+      otherProf.setPreferredSize(new Dimension(middleboxes));
+      attacksSpellcasting.setPreferredSize(new Dimension(middleboxes));
+      raceTraits.setPreferredSize(new Dimension(middleboxes));
+      classTraits.setPreferredSize(new Dimension(middleboxes));
+      notesTA.setPreferredSize(new Dimension(middleboxes));
+      armorField.setPreferredSize(new Dimension(statBlock));
+      SheildField.setPreferredSize(new Dimension(statBlock));
+      weaponField.setPreferredSize(new Dimension(statBlock));
+      armorClassField.setPreferredSize(new Dimension(statBlock));
+      initField.setPreferredSize(new Dimension(statBlock));
+      speedField.setPreferredSize(new Dimension(statBlock));
+      healthField.setPreferredSize(new Dimension(statBlock));
+
       levelField.setEditable(false);
+      strengthFieldMod.setEditable(false);
+      dexFieldMod.setEditable(false);
+      conFieldMod.setEditable(false);
+      intelligenceFieldMod.setEditable(false);
+      wisdomFieldMod.setEditable(false);
+      charismaFieldMod.setEditable(false);
+      acroField.setEditable(false);
+      aHField.setEditable(false);
+      arcField.setEditable(false);
+      athField.setEditable(false);
+      decField.setEditable(false);
+      hisField.setEditable(false);
+      insightField.setEditable(false);
+      intiField.setEditable(false);
+      invesField.setEditable(false);
+      medField.setEditable(false);
+      natureField.setEditable(false);
+      perField.setEditable(false);
+      perfField.setEditable(false);
+      persField.setEditable(false);
+      relField.setEditable(false);
+      sleightField.setEditable(false);
+      stealthField.setEditable(false);
+      surField.setEditable(false);
       levelField.setText("1");
 
-      p1.add(alignment = new JLabel("Alignment: ", JLabel.RIGHT));
-      p1.add(alignField = new JTextField(10));
+      /**
+       * Add to p1
+       */
+      p1.add(name); // JLabel
+      p1.add(nameField); // JTextField
+      p1.add(charClass); // JLabel
+      p1.add(classCombo); // JComboBox
+      p1.add(level); // JLabel
+      p1.add(levelField); // JTextField
+      p1.add(alignment); // JLabel
+      p1.add(alignField); // JTextField
+      p1.add(gender); // JLabel
+      p1.add(genderField); // JTextField
+      p1.add(race); // JLabel
+      p1.add(raceCombo); // JComboBox
+      p1.add(descripField); // JLabel
+      p1.add(description); // JTextField
 
-      p1.add(gender = new JLabel("Gender: ", JLabel.RIGHT));
-      p1.add(genderField = new JTextField(10));
+      /**
+       * Add to p2
+       */
+      p2.add(strength); // JLabel
+      p2.add(strengthField); // JTextField
+      p2.add(dex); // JLabel
+      p2.add(dexField); // JTextField
+      p2.add(con); // JLabel
+      p2.add(conField); // JTextField
+      p2.add(intelligence); // JLabel
+      p2.add(intField); // JTextField
+      p2.add(wisdom); // JLabel
+      p2.add(wisField); // JTextField
+      p2.add(charisma); // JLabel
+      p2.add(charField); // JTextField
 
-      p1.add(race = new JLabel("Race: ", JLabel.RIGHT));
-      JComboBox raceCombo = new JComboBox(races);
-      p1.add(raceCombo);
-      _race = (String) raceCombo.getSelectedItem();
-
-      JLabel descripField;
-      p1.add(descripField = new JLabel("Description: ", JLabel.RIGHT));
-      p1.add(description = new JTextArea(1, 2));
-
-      top.add(menu, BorderLayout.NORTH);
-      top.add(p1, BorderLayout.CENTER);
-      // end of p1
-
-      // All components for p2
-      p2 = new JPanel(new GridLayout(0, 1));
-      Dimension small = new Dimension(30, 30);
-
-      p2.add(strength = new JLabel("Strength: ", JLabel.RIGHT));
-      p2.add(strengthField = new JTextField(5));
-      strengthField.setPreferredSize(new Dimension(small));
-
-      p2.add(dex = new JLabel("Dexterity: ", JLabel.RIGHT));
-      p2.add(dexField = new JTextField(5));
-      dexField.setPreferredSize(new Dimension(small));
-
-      p2.add(con = new JLabel("Constitution: ", JLabel.RIGHT));
-      p2.add(conField = new JTextField(5));
-      conField.setPreferredSize(new Dimension(small));
-
-      p2.add(intelligence = new JLabel("Intelligence: ", JLabel.RIGHT));
-      p2.add(intField = new JTextField(5));
-      intField.setPreferredSize(new Dimension(small));
-
-      p2.add(wisdom = new JLabel("Wisdom: ", JLabel.RIGHT));
-      p2.add(wisField = new JTextField(5));
-      wisField.setPreferredSize(new Dimension(small));
-
-      p2.add(charisma = new JLabel("Charisma: ", JLabel.RIGHT));
-      p2.add(charField = new JTextField(5));
-      charField.setPreferredSize(new Dimension(small));
-
-      // end of p2
-
-      // All components for p3
-      p3 = new JPanel(new GridLayout(0, 1));
-
-      JLabel personalityLabel;
-      p3.add(personalityLabel = new JLabel("Personality: ", JLabel.RIGHT));
-      p3.add(personality = new JTextArea(40, 20));
-
-      JLabel idealLabel;
-      p3.add(idealLabel = new JLabel("Ideals: ", JLabel.RIGHT));
-      p3.add(ideals = new JTextArea(40, 20));
-
-      JLabel bondLabel;
-      p3.add(bondLabel = new JLabel("Bonds: ", JLabel.RIGHT));
-      p3.add(bonds = new JTextArea(40, 20));
-
-      JLabel flawLabel;
-      p3.add(flawLabel = new JLabel("Flaws: ", JLabel.RIGHT));
-      p3.add(flaws = new JTextArea(40, 20));
-
-      JLabel ftLabel;
-      p3.add(ftLabel = new JLabel("Features & Traits: ", JLabel.RIGHT));
-      p3.add(featuresTraits = new JTextArea(40, 20));
+      /**
+       * Add to p3
+       */
+      p3.add(personalityLabel); // JLabel
+      p3.add(personality); // JTextArea
+      p3.add(idealLabel); // JLabel
+      p3.add(ideals); // JTextArea
+      p3.add(bondLabel); // JLabel
+      p3.add(bonds); // JTextArea
+      p3.add(flawLabel); // JLabel
+      p3.add(flaws); // JTextArea
+      p3.add(ftLabel); // JLabel
+      p3.add(featuresTraits); // JTextArea
       // end of p3
 
       // All components for p4
-      p4 = new JPanel(new GridLayout(2, 3));
 
-      Dimension middleboxes = new Dimension(200, 100);
-
-      p4.add(equipment = new JTextArea(3, 5));
-      equipment.setPreferredSize(new Dimension(middleboxes));
-      p4.add(otherProf = new JTextArea(3, 5));
-      otherProf.setPreferredSize(new Dimension(middleboxes));
-      p4.add(attacksSpellcasting = new JTextArea(3, 5));
-      attacksSpellcasting.setPreferredSize(new Dimension(middleboxes));
-      p4.add(raceTraits = new JTextArea(3, 5));
-      raceTraits.setPreferredSize(new Dimension(middleboxes));
-      p4.add(classTraits = new JTextArea(3, 5));
-      classTraits.setPreferredSize(new Dimension(middleboxes));
-      p4.add(notesTA = new JTextArea(3, 5));
-      notesTA.setPreferredSize(new Dimension(middleboxes));
-
-      JLabel langLabel;
-      p4.add(langLabel = new JLabel("Other Skills and Languages", JLabel.CENTER));
-      JLabel equipmentLabel;
-      p4.add(equipmentLabel = new JLabel("Equipment", JLabel.CENTER));
-      JLabel attackLabel;
-      p4.add(attackLabel = new JLabel("Attacks and Spellcasting", JLabel.CENTER));
-      JLabel raceLabel;
-      p4.add(raceLabel = new JLabel("Race Traits", JLabel.CENTER));
-      JLabel classLabel;
-      p4.add(classLabel = new JLabel("Class Traits", JLabel.CENTER));
-      JLabel notesLabel;
-      p4.add(notesLabel = new JLabel("Notes", JLabel.CENTER));
+      p4.add(equipment); // JTextArea
+      p4.add(otherProf); // JTextArea
+      p4.add(attacksSpellcasting); // JTextArea
+      p4.add(raceTraits); // JTextArea
+      p4.add(classTraits); // JTextArea
+      p4.add(notesTA); // JTextArea
+      p4.add(langLabel); // JLabel
+      p4.add(equipmentLabel); // JLabel
+      p4.add(attackLabel); // JLabel
+      p4.add(raceLabel); // JLabel
+      p4.add(classLabel); // JLabel
+      p4.add(notesLabel); // JLabel
       // end of p4
 
-      // All components for p5
-      p5 = new JPanel(new GridLayout(0, 2));
-
-      // two inner panels for p5
-      JPanel p6 = new JPanel(new GridLayout(0, 3));
-      JPanel p7 = new JPanel(new GridLayout(0, 2));
-
       // All components for p7
-      Dimension statBlock = new Dimension(10, 10);
-      JComboBox armorField;
-      p7.add(armor = new JLabel("Armor: ", JLabel.RIGHT));
-      p7.add(armorField = new JComboBox(armors));
-      armorField.setPreferredSize(new Dimension(statBlock));
 
-      JComboBox SheildField;
-      p7.add(shield = new JLabel("Sheild: ", JLabel.RIGHT));
-      p7.add(SheildField = new JComboBox(shields));
-      SheildField.setPreferredSize(new Dimension(statBlock));
+      p7.add(armor); // JLabel
+      p7.add(armorField); // JComboBox
+      p7.add(shield); // JLabel
+      p7.add(SheildField); // JComboBox
+      p7.add(weapon); // JLabel
+      p7.add(weaponField); // JComboBox
+      p7.add(armorClass); // JLabel
+      p7.add(armorClassField); // JTextField
+      p7.add(intitive); // JLabel
+      p7.add(initField); // JTextField
+      p7.add(speed); // JLabel
+      p7.add(speedField); // JTextField
+      p7.add(health); // JLabel
+      p7.add(healthField); // JTextField
+      p7.add(tempHealth); // JLabel
+      p7.add(tempHealthField); // JTextField
+      // end of p7
 
-      JComboBox weaponField;
-      p7.add(weapon = new JLabel("Weapons: ", JLabel.RIGHT));
-      p7.add(weaponField = new JComboBox(weapons));
-      weaponField.setPreferredSize(new Dimension(statBlock));
+      // All components for p6
+      p6.add(strengthMod); // JLabel
+      p6.add(strengthFieldMod); // JTextField
+      p6.add(stBox); // JCheckBox
+      p6.add(dexMod); // JLabel
+      p6.add(dexFieldMod); // JTextField
+      p6.add(dexBox); // JCheckBox
+      p6.add(conMod); // JLabel
+      p6.add(conFieldMod); // JTextField
+      p6.add(conBox); // JCheckBox
+      p6.add(intelligenceMod); // JLabel
+      p6.add(intelligenceFieldMod); // JTextField
+      p6.add(intBox); // JCheckBox
+      p6.add(wisdomMod); // JLabel
+      p6.add(wisdomFieldMod); // JTextField
+      p6.add(wisBox); // JCheckBox
+      p6.add(charismaMod); // JLabel
+      p6.add(charismaFieldMod); // JTextField
+      p6.add(charBox); // JCheckBox
+      p6.add(skills); // JLabel
+      p6.add(skillField); // JLabel
+      p6.add(empty1); // JCheckBox
+      p6.add(acrobatics); // JLabel
+      p6.add(acroField); // JTextField
+      p6.add(acroBox); // JCheckBox
+      p6.add(animalHandling); // JLabel
+      p6.add(aHField); // JTextField
+      p6.add(aHBox); // JCheckBox
+      p6.add(arcana); // JLabel
+      p6.add(arcField); // JTextField
+      p6.add(arcBox); // JCheckBox
+      p6.add(athletics); // JLabel
+      p6.add(athField); // JTextField
+      p6.add(athBox); // JCheckBox
+      p6.add(deception); // JLabel
+      p6.add(decField); // JTextField
+      p6.add(decBox); // JCheckBox
+      p6.add(history); // JLabel
+      p6.add(hisField); // JTextField
+      p6.add(hisBox); // JCheckBox
+      p6.add(insight); // JLabel
+      p6.add(insightField); // JTextField
+      p6.add(insightBox); // JCheckBox
+      p6.add(intimidation); // JLabel
+      p6.add(intiField); // JTextField
+      p6.add(intiBox); // JCheckBox
+      p6.add(investigation); // JLabel
+      p6.add(invesField); // JTextField
+      p6.add(invesBox); // JCheckBox
+      p6.add(medicine); // JLabel
+      p6.add(medField); // JTextField
+      p6.add(medBox); // JCheckBox
+      p6.add(nature); // JLabel
+      p6.add(natureField); // JTextField
+      p6.add(natureBox); // JCheckBox
+      p6.add(perception); // JLabel
+      p6.add(perField); // JTextField
+      p6.add(perBox); // JCheckBox
+      p6.add(performance); // JLabel
+      p6.add(perfField); // JTextField
+      p6.add(perfBox); // JCheckBox
+      p6.add(persuasion); // JLabel
+      p6.add(persField); // JTextField
+      p6.add(persBox); // JCheckBox
+      p6.add(religion); // JLabel
+      p6.add(relField); // JTextField
+      p6.add(relBox); // JCheckBox
+      p6.add(sleight); // JLabel
+      p6.add(sleightField); // JTextField
+      p6.add(sleightBox); // JCheckBox
+      p6.add(stealth); // JLabel
+      p6.add(stealthField); // JTextField
+      p6.add(stealthBox); // JCheckBox
+      p6.add(survival); // JLabel
+      p6.add(surField); // JTextField
+      p6.add(surBox); // JCheckBox
+      p5.add(p6); // JPanel
+      p5.add(p7); // JPanel
 
       logic = new CharacterSheetLogic(_charClass, _level, _race, _strength, _dex, _con, _intelligence, _wisdom,
             _charisma, _equipment, _armor, _health, _ac, _sheild);
 
-      p7.add(armorClass = new JLabel("Armor Class: ", JLabel.RIGHT));
-      p7.add(armorClassField = new JTextField(3));
-      armorClassField.setPreferredSize(new Dimension(statBlock));
-      armorClassField.setText(String.valueOf(logic.armorClass));
-
-      p7.add(intitive = new JLabel("Intitive: ", JLabel.RIGHT));
-      p7.add(initField = new JTextField(3));
-      initField.setPreferredSize(new Dimension(statBlock));
-      initField.setPreferredSize(new Dimension(small));
-
-      p7.add(speed = new JLabel("Speed: ", JLabel.RIGHT));
-      p7.add(speedField = new JTextField(3));
-      speedField.setPreferredSize(new Dimension(statBlock));
-      speedField.setText(String.valueOf(logic.speed));
-
-      p7.add(health = new JLabel("Max Health Points: ", JLabel.RIGHT));
-      p7.add(healthField = new JTextField(3));
-      healthField.setPreferredSize(new Dimension(statBlock));
-      healthField.setText(String.valueOf(logic.health));
-
-      p7.add(tempHealth = new JLabel("Temp. Health Points: ", JLabel.RIGHT));
-      p7.add(tempHealthField = new JTextField(3));
-      // end of p7
-
-      // All components for p6
-      JLabel stField;
-      JLabel empty;
-      p6.add(strengthMod = new JLabel("Strength: ", JLabel.RIGHT));
-      p6.add(strengthFieldMod = new JTextField(5));
-      strengthFieldMod.setEditable(false);
-      stBox = new JCheckBox("");
-      p6.add(stBox);
-
-      p6.add(dexMod = new JLabel("Dexterity: ", JLabel.RIGHT));
-      p6.add(dexFieldMod = new JTextField(5));
-      dexFieldMod.setEditable(false);
-      dexBox = new JCheckBox("");
-      p6.add(dexBox);
-
-      p6.add(conMod = new JLabel("Constitution: ", JLabel.RIGHT));
-      p6.add(conFieldMod = new JTextField(5));
-      conFieldMod.setEditable(false);
-      conBox = new JCheckBox("");
-      p6.add(conBox);
-
-      p6.add(intelligenceMod = new JLabel("Intelligence: ", JLabel.RIGHT));
-      p6.add(intelligenceFieldMod = new JTextField(5));
-      intelligenceFieldMod.setEditable(false);
-      intBox = new JCheckBox("");
-      p6.add(intBox);
-
-      p6.add(wisdomMod = new JLabel("Wisdom: ", JLabel.RIGHT));
-      p6.add(wisdomFieldMod = new JTextField(5));
-      wisdomFieldMod.setEditable(false);
-      wisBox = new JCheckBox("");
-      p6.add(wisBox);
-
-      p6.add(charismaMod = new JLabel("Charisma: ", JLabel.RIGHT));
-      p6.add(charismaFieldMod = new JTextField(5));
-      charismaFieldMod.setEditable(false);
-      charBox = new JCheckBox("");
-      p6.add(charBox);
-
-      JLabel skillField;
-      p6.add(skills = new JLabel("Skills: ", JLabel.CENTER));
-      p6.add(skillField = new JLabel("", JLabel.RIGHT));
-      JLabel empty1 = new JLabel("", JLabel.RIGHT);
-      p6.add(empty1);
-
-      p6.add(acrobatics = new JLabel("Acrobatics: ", JLabel.RIGHT));
-      p6.add(acroField = new JTextField(3));
-      acroField.setEditable(false);
-      acroBox = new JCheckBox("");
-      p6.add(acroBox);
-
-      p6.add(animalHandling = new JLabel("Animal \nHandling: ", JLabel.RIGHT));
-      p6.add(aHField = new JTextField(3));
-      aHField.setEditable(false);
-      aHBox = new JCheckBox("");
-      p6.add(aHBox);
-
-      p6.add(arcana = new JLabel("Arcana: ", JLabel.RIGHT));
-      p6.add(arcField = new JTextField(3));
-      arcField.setEditable(false);
-      arcBox = new JCheckBox("");
-      p6.add(arcBox);
-
-      p6.add(athletics = new JLabel("Atheltics: ", JLabel.RIGHT));
-      p6.add(athField = new JTextField(3));
-      athField.setEditable(false);
-      athBox = new JCheckBox("");
-      p6.add(athBox);
-
-      p6.add(deception = new JLabel("Deception: ", JLabel.RIGHT));
-      p6.add(decField = new JTextField(3));
-      decField.setEditable(false);
-      decBox = new JCheckBox("");
-      p6.add(decBox);
-
-      p6.add(history = new JLabel("History: ", JLabel.RIGHT));
-      p6.add(hisField = new JTextField(3));
-      hisField.setEditable(false);
-      hisBox = new JCheckBox("");
-      p6.add(hisBox);
-
-      p6.add(insight = new JLabel("Insight: ", JLabel.RIGHT));
-      p6.add(insightField = new JTextField(3));
-      insightField.setEditable(false);
-      insightBox = new JCheckBox("");
-      p6.add(insightBox);
-
-      p6.add(intimidation = new JLabel("Intimidation: ", JLabel.RIGHT));
-      p6.add(intiField = new JTextField(3));
-      intiField.setEditable(false);
-      intiBox = new JCheckBox("");
-      p6.add(intiBox);
-
-      p6.add(intimidation = new JLabel("Intimidation: ", JLabel.RIGHT));
-      p6.add(invesField = new JTextField(3));
-      invesField.setEditable(false);
-      invesBox = new JCheckBox("");
-      p6.add(invesBox);
-
-      p6.add(medicine = new JLabel("Medicine: ", JLabel.RIGHT));
-      p6.add(medField = new JTextField(3));
-      medField.setEditable(false);
-      medBox = new JCheckBox("");
-      p6.add(medBox);
-
-      p6.add(nature = new JLabel("Nature: ", JLabel.RIGHT));
-      p6.add(natureField = new JTextField(3));
-      natureField.setEditable(false);
-      natureBox = new JCheckBox("");
-      p6.add(natureBox);
-
-      p6.add(perception = new JLabel("Perception: ", JLabel.RIGHT));
-      p6.add(perField = new JTextField(3));
-      perField.setEditable(false);
-      perBox = new JCheckBox("");
-      p6.add(perBox);
-
-      p6.add(performance = new JLabel("Performance: ", JLabel.RIGHT));
-      p6.add(perfField = new JTextField(3));
-      perfField.setEditable(false);
-      perfBox = new JCheckBox("");
-      p6.add(perfBox);
-
-      p6.add(persuasion = new JLabel("Persuasion: ", JLabel.RIGHT));
-      p6.add(persField = new JTextField(3));
-      persField.setEditable(false);
-      persBox = new JCheckBox("");
-      p6.add(persBox);
-
-      p6.add(religion = new JLabel("Religion: ", JLabel.RIGHT));
-      p6.add(relField = new JTextField(3));
-      relField.setEditable(false);
-      relBox = new JCheckBox("");
-      p6.add(relBox);
-
-      p6.add(sleight = new JLabel("Sleight Of \nHand: ", JLabel.RIGHT));
-      p6.add(sleightField = new JTextField(3));
-      sleightField.setEditable(false);
-      sleightBox = new JCheckBox("");
-      p6.add(sleightBox);
-
-      p6.add(stealth = new JLabel("Stealth: ", JLabel.RIGHT));
-      p6.add(stealthField = new JTextField(3));
-      stealthField.setEditable(false);
-      stealthBox = new JCheckBox("");
-      p6.add(stealthBox);
-
-      p6.add(survival = new JLabel("Survival: ", JLabel.RIGHT));
-      p6.add(surField = new JTextField(3));
-      surField.setEditable(false);
-      surBox = new JCheckBox("");
-      p6.add(surBox);
-      // end of p6
-
-      // end of p5
-      p5.add(p6);
-      p5.add(p7);
-
-      JPanel temp1 = new JPanel();
-      visualInterir = new JPanel();
+      /**
+       * Assemble GUI
+       */
+      file.add(update);
+      file.add(save);
+      file.add(open);
+      file.add(lvlUp);
+      file.add(lvlDown);
+      mb.add(file);
+      top.add(menu, BorderLayout.NORTH);
+      top.add(p1, BorderLayout.CENTER);
       visualInterir.setLayout(new BoxLayout(visualInterir, BoxLayout.PAGE_AXIS));
       top.setPreferredSize(new Dimension(500, 100));
       top.setMaximumSize(new Dimension(500, 100));
       top.setAlignmentY(Component.TOP_ALIGNMENT);
       top.setAlignmentX(Component.RIGHT_ALIGNMENT);
       visualInterir.add(top);
-
       temp1.add(p2);
-
       temp1.add(p5);
       temp1.setBorder(BorderFactory.createTitledBorder(""));
       visualInterir.add(temp1);
-
       p4.setPreferredSize(new Dimension(1350, 100));
       p4.setMaximumSize(new Dimension(1350, 600));
       visualInterir.add(p4);
-
       p3.setAlignmentX(Component.LEFT_ALIGNMENT);
       p3.setPreferredSize(new Dimension(450, 800));
       p3.setMaximumSize(new Dimension(450, 1000));
       visualInterir.add(p3);
-
-      visualExterior = new JPanel();
       visualExterior.setSize(1400, 600);
       visualExterior.setLayout(new BorderLayout());
       visualExterior.add(mb);
       visualExterior.add(visualInterir, BorderLayout.CENTER);
       scroll = new JScrollPane(visualExterior);
+
       scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
       scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
       scroll.getVerticalScrollBar().setUnitIncrement(16);
       scroll.setSize(1400, 600);
 
-      file.setBackground(Color.BLACK);
-      temp1.setBackground(Color.BLACK);
-      visualInterir.setBackground(Color.BLACK);
-      scroll.setBackground(Color.BLACK);
-      visualExterior.setBackground(Color.BLACK);
-      p1.setBackground(Color.BLACK);
-      p2.setBackground(Color.BLACK);
-      p3.setBackground(Color.BLACK);
-      p4.setBackground(Color.BLACK);
-      p5.setBackground(Color.BLACK);
-      p6.setBackground(Color.BLACK);
-      p7.setBackground(Color.BLACK);
-
-      acroField.setBackground(Color.BLACK);
-      aHField.setBackground(Color.BLACK);
-      arcField.setBackground(Color.BLACK);
-      athField.setBackground(Color.BLACK);
-      decField.setBackground(Color.BLACK);
-      hisField.setBackground(Color.BLACK);
-      insightField.setBackground(Color.BLACK);
-      intiField.setBackground(Color.BLACK);
-      invesField.setBackground(Color.BLACK);
-      medField.setBackground(Color.BLACK);
-      natureField.setBackground(Color.BLACK);
-      perField.setBackground(Color.BLACK);
-      perfField.setBackground(Color.BLACK);
-      persField.setBackground(Color.BLACK);
-      relField.setBackground(Color.BLACK);
-      sleightField.setBackground(Color.BLACK);
-      stealthField.setBackground(Color.BLACK);
-      surField.setBackground(Color.BLACK);
-      healthField.setBackground(Color.BLACK);
-      tempHealthField.setBackground(Color.BLACK);
-      speedField.setBackground(Color.BLACK);
-      initField.setBackground(Color.BLACK);
-      armorClassField.setBackground(Color.BLACK);
-
-      stBox.setBackground(Color.BLACK);
-      dexBox.setBackground(Color.BLACK);
-      conBox.setBackground(Color.BLACK);
-      intBox.setBackground(Color.BLACK);
-      wisBox.setBackground(Color.BLACK);
-      charBox.setBackground(Color.BLACK);
-      acroBox.setBackground(Color.BLACK);
-      aHBox.setBackground(Color.BLACK);
-      arcBox.setBackground(Color.BLACK);
-      athBox.setBackground(Color.BLACK);
-      decBox.setBackground(Color.BLACK);
-      hisBox.setBackground(Color.BLACK);
-      insightBox.setBackground(Color.BLACK);
-      intiBox.setBackground(Color.BLACK);
-      invesBox.setBackground(Color.BLACK);
-      medBox.setBackground(Color.BLACK);
-      natureBox.setBackground(Color.BLACK);
-      perBox.setBackground(Color.BLACK);
-      perfBox.setBackground(Color.BLACK);
-      persBox.setBackground(Color.BLACK);
-      relBox.setBackground(Color.BLACK);
-      sleightBox.setBackground(Color.BLACK);
-      stealthBox.setBackground(Color.BLACK);
-      surBox.setBackground(Color.BLACK);
-
-      strengthFieldMod.setBackground(Color.BLACK);
-      dexFieldMod.setBackground(Color.BLACK);
-      conFieldMod.setBackground(Color.BLACK);
-      intelligenceFieldMod.setBackground(Color.BLACK);
-      wisdomFieldMod.setBackground(Color.BLACK);
-      charismaFieldMod.setBackground(Color.BLACK);
-
-      mb.setBackground(Color.BLACK);
-      open.setBackground(Color.BLACK);
-      lvlUp.setBackground(Color.BLACK);
-      // lvlDown.setBackground(Color.BLACK);
-      description.setBackground(Color.BLACK);
-
-      update.setBackground(Color.BLACK);
-      save.setBackground(Color.BLACK);
-      menu.setBackground(Color.BLACK);
-
-      personality.setBackground(Color.BLACK);
-      ideals.setBackground(Color.BLACK);
-      bonds.setBackground(Color.BLACK);
-      flaws.setBackground(Color.BLACK);
-      featuresTraits.setBackground(Color.BLACK);
-
-      otherProf.setBackground(Color.BLACK);
-      equipment.setBackground(Color.BLACK);
-      attacksSpellcasting.setBackground(Color.BLACK);
-      raceTraits.setBackground(Color.BLACK);
-      classTraits.setBackground(Color.BLACK);
-      notesTA.setBackground(Color.BLACK);
-
-      CharacterSheetLogic test = new CharacterSheetLogic(_charClass, _level, _race, _strength, _dex, _con,
-            _intelligence, _wisdom, _charisma);
+      /*
+       * file.setBackground(Color.BLACK); temp1.setBackground(Color.BLACK);
+       * visualInterir.setBackground(Color.BLACK); scroll.setBackground(Color.BLACK);
+       * visualExterior.setBackground(Color.BLACK); p1.setBackground(Color.BLACK);
+       * p2.setBackground(Color.BLACK); p3.setBackground(Color.BLACK);
+       * p4.setBackground(Color.BLACK); p5.setBackground(Color.BLACK);
+       * p6.setBackground(Color.BLACK); p7.setBackground(Color.BLACK);
+       * 
+       * acroField.setBackground(Color.BLACK); aHField.setBackground(Color.BLACK);
+       * arcField.setBackground(Color.BLACK); athField.setBackground(Color.BLACK);
+       * decField.setBackground(Color.BLACK); hisField.setBackground(Color.BLACK);
+       * insightField.setBackground(Color.BLACK);
+       * intiField.setBackground(Color.BLACK); invesField.setBackground(Color.BLACK);
+       * medField.setBackground(Color.BLACK); natureField.setBackground(Color.BLACK);
+       * perField.setBackground(Color.BLACK); perfField.setBackground(Color.BLACK);
+       * persField.setBackground(Color.BLACK); relField.setBackground(Color.BLACK);
+       * sleightField.setBackground(Color.BLACK);
+       * stealthField.setBackground(Color.BLACK); surField.setBackground(Color.BLACK);
+       * healthField.setBackground(Color.BLACK);
+       * tempHealthField.setBackground(Color.BLACK);
+       * speedField.setBackground(Color.BLACK); initField.setBackground(Color.BLACK);
+       * armorClassField.setBackground(Color.BLACK);
+       * 
+       * stBox.setBackground(Color.BLACK); dexBox.setBackground(Color.BLACK);
+       * conBox.setBackground(Color.BLACK); intBox.setBackground(Color.BLACK);
+       * wisBox.setBackground(Color.BLACK); charBox.setBackground(Color.BLACK);
+       * acroBox.setBackground(Color.BLACK); aHBox.setBackground(Color.BLACK);
+       * arcBox.setBackground(Color.BLACK); athBox.setBackground(Color.BLACK);
+       * decBox.setBackground(Color.BLACK); hisBox.setBackground(Color.BLACK);
+       * insightBox.setBackground(Color.BLACK); intiBox.setBackground(Color.BLACK);
+       * invesBox.setBackground(Color.BLACK); medBox.setBackground(Color.BLACK);
+       * natureBox.setBackground(Color.BLACK); perBox.setBackground(Color.BLACK);
+       * perfBox.setBackground(Color.BLACK); persBox.setBackground(Color.BLACK);
+       * relBox.setBackground(Color.BLACK); sleightBox.setBackground(Color.BLACK);
+       * stealthBox.setBackground(Color.BLACK); surBox.setBackground(Color.BLACK);
+       * 
+       * strengthFieldMod.setBackground(Color.BLACK);
+       * dexFieldMod.setBackground(Color.BLACK);
+       * conFieldMod.setBackground(Color.BLACK);
+       * intelligenceFieldMod.setBackground(Color.BLACK);
+       * wisdomFieldMod.setBackground(Color.BLACK);
+       * charismaFieldMod.setBackground(Color.BLACK);
+       * 
+       * mb.setBackground(Color.BLACK); open.setBackground(Color.BLACK);
+       * lvlUp.setBackground(Color.BLACK); // lvlDown.setBackground(Color.BLACK);
+       * description.setBackground(Color.BLACK);
+       * 
+       * update.setBackground(Color.BLACK); save.setBackground(Color.BLACK);
+       * menu.setBackground(Color.BLACK);
+       * 
+       * personality.setBackground(Color.BLACK); ideals.setBackground(Color.BLACK);
+       * bonds.setBackground(Color.BLACK); flaws.setBackground(Color.BLACK);
+       * featuresTraits.setBackground(Color.BLACK);
+       * 
+       * otherProf.setBackground(Color.BLACK); equipment.setBackground(Color.BLACK);
+       * attacksSpellcasting.setBackground(Color.BLACK);
+       * raceTraits.setBackground(Color.BLACK);
+       * classTraits.setBackground(Color.BLACK); notesTA.setBackground(Color.BLACK);
+       */
 
       ActionListener updateListener = new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
+
+            lvlOneUpdateYS = true;
 
             stBoxBool = stBox.isSelected();
             dexBoxBool = dexBox.isSelected();
@@ -1218,7 +1291,7 @@ public class CharacterSheetV3 extends JFrame {
             } catch (NumberFormatException nfe) {
             }
             try {
-               _armorClass = Integer.parseInt(armorClassField.getText());
+               _ac = Integer.parseInt(armorClassField.getText());
             } catch (NumberFormatException nfe) {
             }
             try {
@@ -1379,7 +1452,7 @@ public class CharacterSheetV3 extends JFrame {
                _intelligenceMod = Integer.parseInt(intelligenceFieldMod.getText());
             } catch (NumberFormatException nfe) {
             }
-            //
+
             try {
                _conMod = Integer.parseInt(conFieldMod.getText());
             } catch (NumberFormatException nfe) {
@@ -1445,156 +1518,219 @@ public class CharacterSheetV3 extends JFrame {
             }
 
             logic.update(_charClass, _level, _race, _strength, _dex, _con, _intelligence, _wisdom, _charisma,
-                  _equipment, _armor, _health, _ac, _sheild);
+                  _equipment, _armor, _health, _ac, _sheild, localLevelTracker);
 
             logic.RaceSelect();
 
-            healthField.setText(String.valueOf(logic.health));
-            armorClassField.setText(String.valueOf(logic.armorClass));
-            speedField.setText(String.valueOf(logic.speed));
+            _health = logic.health;
 
-            if (logic.strengthMod < 0) {
-               strengthFieldMod.setText(String.valueOf(logic.strengthMod));
+            _strength = logic.strength;
+            _dex = logic.dex;
+            _con = logic.con;
+            _intelligence = logic.intelligence;
+            _wisdom = logic.wisdom;
+            _charisma = logic.charisma;
+            _ac = logic.armorClass;
+            _initiative = logic.initiative;
+            _speed = logic.speed;
+            _strengthMod = logic.strengthMod;
+            _dexMod = logic.dexMod;
+            _conMod = logic.conMod;
+            _intelligenceMod = logic.intelligenceMod;
+            _wisdomMod = logic.wisdomMod;
+            _charismaMod = logic.charismaMod;
+            _acrobatics = logic.acrobatics;
+            _animalHandling = logic.animalHandling;
+            _arcana = logic.arcana;
+            _athletics = logic.athletics;
+            _deception = logic.deception;
+            _history = logic.history;
+            _insight = logic.insight;
+            _intimidation = logic.intimidation;
+            _investigation = logic.investigation;
+            _medicine = logic.medicine;
+            _nature = logic.nature;
+            _perception = logic.perception;
+            _performance = logic.performance;
+            _persuasion = logic.persuasion;
+            _religion = logic.religion;
+            _sleight = logic.sleight;
+            _stealth = logic.stealth;
+            _survival = logic.survival;
+
+            speedField.setText(String.valueOf(_speed));
+            armorClassField.setText(String.valueOf(_ac));
+            healthField.setText(String.valueOf(_health));
+
+            strengthField.setText(String.valueOf(_strength));
+            dexField.setText(String.valueOf(_dex));
+            conField.setText(String.valueOf(_con));
+            intField.setText(String.valueOf(_intelligence));
+            wisField.setText(String.valueOf(_wisdom));
+            charField.setText(String.valueOf(_charisma));
+
+            if (_strengthMod < 0) {
+               if (stBoxBool == true) {
+                  _strengthMod = _strengthMod + logic.proficiencyBonus;
+                  strengthFieldMod.setText(String.valueOf(_strengthMod));
+               } else {
+                  strengthFieldMod.setText(String.valueOf(_strengthMod));
+               }
             } else {
-               strengthFieldMod.setText("+" + String.valueOf(logic.strengthMod));
+               if (stBoxBool == true) {
+                  _strengthMod = _strengthMod + logic.proficiencyBonus;
+                  strengthFieldMod.setText("+" + String.valueOf(_strengthMod));
+               } else {
+                  strengthFieldMod.setText("+" + String.valueOf(_strengthMod));
+               }
             }
 
-            if (logic.dexMod < 0) {
-               dexFieldMod.setText(String.valueOf(logic.dexMod));
+            if (_dexMod < 0) {
+               if (dexBoxBool == true) {
+                  _dexMod = _dexMod + logic.proficiencyBonus;
+                  dexFieldMod.setText(String.valueOf(_dexMod));
+               } else {
+                  dexFieldMod.setText(String.valueOf(_dexMod));
+               }
             } else {
-               dexFieldMod.setText("+" + String.valueOf(logic.dexMod));
+               if (dexBoxBool == true) {
+                  _dexMod = _dexMod + logic.proficiencyBonus;
+                  dexFieldMod.setText("+" + String.valueOf(_dexMod));
+               } else {
+                  dexFieldMod.setText("+" + String.valueOf(_dexMod));
+               }
             }
 
-            if (logic.conMod < 0) {
-               conFieldMod.setText(String.valueOf(logic.conMod));
+            if (_conMod < 0) {
+               conFieldMod.setText(String.valueOf(_conMod));
             } else {
-               conFieldMod.setText("+" + String.valueOf(logic.conMod));
+               conFieldMod.setText("+" + String.valueOf(_conMod));
             }
 
-            if (logic.intelligenceMod < 0) {
-               intelligenceFieldMod.setText(String.valueOf(logic.intelligenceMod));
+            if (_intelligenceMod < 0) {
+               intelligenceFieldMod.setText(String.valueOf(_intelligenceMod));
             } else {
-               intelligenceFieldMod.setText("+" + String.valueOf(logic.intelligenceMod));
+               intelligenceFieldMod.setText("+" + String.valueOf(_intelligenceMod));
             }
 
-            if (logic.wisdomMod < 0) {
-               wisdomFieldMod.setText(String.valueOf(logic.wisdomMod));
+            if (_wisdomMod < 0) {
+               wisdomFieldMod.setText(String.valueOf(_wisdomMod));
             } else {
-               wisdomFieldMod.setText("+" + String.valueOf(logic.wisdomMod));
+               wisdomFieldMod.setText("+" + String.valueOf(_wisdomMod));
             }
 
-            if (logic.charismaMod < 0) {
-               charismaFieldMod.setText(String.valueOf(logic.charismaMod));
+            if (_charismaMod < 0) {
+               charismaFieldMod.setText(String.valueOf(_charismaMod));
             } else {
-               charismaFieldMod.setText("+" + String.valueOf(logic.charismaMod));
+               charismaFieldMod.setText("+" + String.valueOf(_charismaMod));
             }
 
-            if (logic.dexMod < 0) {
-               acroField.setText(String.valueOf(logic.dexMod));
+            if (_acrobatics < 0) {
+               acroField.setText(String.valueOf(_acrobatics));
             } else {
-               acroField.setText("+" + String.valueOf(logic.dexMod));
+               acroField.setText("+" + String.valueOf(_acrobatics));
             }
 
-            if (logic.wisdomMod < 0) {
-               aHField.setText(String.valueOf(logic.wisdomMod));
+            if (_animalHandling < 0) {
+               aHField.setText(String.valueOf(_animalHandling));
             } else {
-               aHField.setText("+" + String.valueOf(logic.wisdomMod));
+               aHField.setText("+" + String.valueOf(_animalHandling));
             }
 
-            if (logic.intelligenceMod < 0) {
-               arcField.setText(String.valueOf(logic.intelligenceMod));
+            if (_arcana < 0) {
+               arcField.setText(String.valueOf(_arcana));
             } else {
-               arcField.setText("+" + String.valueOf(logic.intelligenceMod));
+               arcField.setText("+" + String.valueOf(_arcana));
             }
 
-            if (logic.strengthMod < 0) {
-               athField.setText(String.valueOf(logic.strengthMod));
+            if (_athletics < 0) {
+               athField.setText(String.valueOf(_athletics));
             } else {
-               athField.setText("+" + String.valueOf(logic.strengthMod));
+               athField.setText("+" + String.valueOf(_athletics));
             }
 
-            if (logic.charismaMod < 0) {
-               decField.setText(String.valueOf(logic.charismaMod));
+            if (_deception < 0) {
+               decField.setText(String.valueOf(_deception));
             } else {
-               decField.setText("+" + String.valueOf(logic.charismaMod));
+               decField.setText("+" + String.valueOf(_deception));
             }
 
-            if (logic.intelligenceMod < 0) {
-               hisField.setText(String.valueOf(logic.intelligenceMod));
+            if (_history < 0) {
+               hisField.setText(String.valueOf(_history));
             } else {
-               hisField.setText("+" + String.valueOf(logic.intelligenceMod));
+               hisField.setText("+" + String.valueOf(_history));
             }
 
-            if (logic.wisdomMod < 0) {
-               insightField.setText(String.valueOf(logic.wisdomMod));
+            if (_insight < 0) {
+               insightField.setText(String.valueOf(_insight));
             } else {
-               insightField.setText("+" + String.valueOf(logic.wisdomMod));
+               insightField.setText("+" + String.valueOf(_insight));
             }
 
-            if (logic.charismaMod < 0) {
-               intiField.setText(String.valueOf(logic.charismaMod));
+            if (_intimidation < 0) {
+               intiField.setText(String.valueOf(_intimidation));
             } else {
-               intiField.setText("+" + String.valueOf(logic.charismaMod));
+               intiField.setText("+" + String.valueOf(_intimidation));
             }
 
-            if (logic.intelligenceMod < 0) {
-               invesField.setText(String.valueOf(logic.intelligenceMod));
+            if (_investigation < 0) {
+               invesField.setText(String.valueOf(_investigation));
             } else {
-               invesField.setText("+" + String.valueOf(logic.intelligenceMod));
+               invesField.setText("+" + String.valueOf(_investigation));
             }
 
-            if (logic.wisdomMod < 0) {
-               medField.setText(String.valueOf(logic.wisdomMod));
+            if (_medicine < 0) {
+               medField.setText(String.valueOf(_medicine));
             } else {
-               medField.setText("+" + String.valueOf(logic.wisdomMod));
+               medField.setText("+" + String.valueOf(_medicine));
             }
 
-            if (logic.intelligenceMod < 0) {
-               natureField.setText(String.valueOf(logic.intelligenceMod));
+            if (_nature < 0) {
+               natureField.setText(String.valueOf(_nature));
             } else {
-               natureField.setText("+" + String.valueOf(logic.intelligenceMod));
+               natureField.setText("+" + String.valueOf(_nature));
             }
 
-            if (logic.wisdomMod < 0) {
-               perField.setText(String.valueOf(logic.wisdomMod));
+            if (_perception < 0) {
+               perField.setText(String.valueOf(_perception));
             } else {
-               perField.setText("+" + String.valueOf(logic.wisdomMod));
+               perField.setText("+" + String.valueOf(_perception));
             }
 
-            if (logic.charismaMod < 0) {
-               perfField.setText(String.valueOf(logic.charismaMod));
+            if (_performance < 0) {
+               perfField.setText(String.valueOf(_performance));
             } else {
-               perfField.setText("+" + String.valueOf(logic.charismaMod));
+               perfField.setText("+" + String.valueOf(_performance));
             }
 
-            if (logic.charismaMod < 0) {
-               persField.setText(String.valueOf(logic.charismaMod));
+            if (_persuasion < 0) {
+               persField.setText(String.valueOf(_persuasion));
             } else {
-               persField.setText("+" + String.valueOf(logic.charismaMod));
+               persField.setText("+" + String.valueOf(_persuasion));
             }
 
-            if (logic.intelligenceMod < 0) {
-               relField.setText(String.valueOf(logic.intelligenceMod));
+            if (_religion < 0) {
+               relField.setText(String.valueOf(_religion));
             } else {
-               relField.setText("+" + String.valueOf(logic.intelligenceMod));
+               relField.setText("+" + String.valueOf(_religion));
             }
 
-            if (logic.dexMod < 0) {
-               sleightField.setText(String.valueOf(logic.dexMod));
+            if (_sleight < 0) {
+               sleightField.setText(String.valueOf(_sleight));
             } else {
-               sleightField.setText("+" + String.valueOf(logic.dexMod));
+               sleightField.setText("+" + String.valueOf(_sleight));
             }
 
-            if (logic.dexMod < 0) {
-               stealthField.setText(String.valueOf(logic.dexMod));
+            if (_stealth < 0) {
+               stealthField.setText(String.valueOf(_stealth));
             } else {
-               stealthField.setText("+" + String.valueOf(logic.dexMod));
+               stealthField.setText("+" + String.valueOf(_stealth));
             }
 
-            if (logic.wisdomMod < 0) {
-               surField.setText(String.valueOf(logic.wisdomMod));
+            if (_survival < 0) {
+               surField.setText(String.valueOf(_survival));
             } else {
-               surField.setText("+" + String.valueOf(logic.wisdomMod));
+               surField.setText("+" + String.valueOf(_survival));
             }
 
             CharacterSheetLogic LL = new CharacterSheetLogic(_charClass, _level, _race, _strength, _dex, _con,
@@ -1605,10 +1741,22 @@ public class CharacterSheetV3 extends JFrame {
 
       ActionListener saveListener = new ActionListener() {
          @Override
-         public void actionPerformed(ActionEvent e) {
+         public void actionPerformed(ActionEvent fexplor) {
+            String _fileName;
             logic.update(_charClass, _level, _race, _strength, _dex, _con, _intelligence, _wisdom, _charisma,
-                  _equipment, _armor, _health, _ac, _sheild);
-            try {
+                  _equipment, _armor, _health, _ac, _sheild, localLevelTracker);
+                  if (fexplor.getSource() == open) {
+                     JFileChooser fc = new JFileChooser();
+                     int returnVal = fc.showOpenDialog(top);
+      
+                     if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        File fileToSave = fc.getSelectedFile();
+                        // This is where a real application would open the file.
+                        System.out.println("Opening: " + fileToSave.getName() + ".");
+                        _fileName = fileToSave.getName();
+                  
+               
+                  try {
                JSONWriter json = new JSONWriter(_name, _charClass, _level, _alignment, _race, _gender, _description,
                      _strength, _dex, _con, _intelligence, _wisdom, _charisma, _strengthMod, _dexMod, _conMod,
                      _intelligenceMod, _wisdomMod, _charismaMod, _acrobatics, _animalHandling, _arcana, _athletics,
@@ -1616,12 +1764,11 @@ public class CharacterSheetV3 extends JFrame {
                      _performance, _persuasion, _religion, _sleight, _stealth, _survival, stBoxBool, dexBoxBool,
                      conBoxBool, intBoxBool, wisBoxBool, charBoxBool, acroBoxBool, aHBoxBool, arcBoxBool, athBoxBool,
                      decBoxBool, hisBoxBool, insightBoxBool, intiBoxBool, invesBoxBool, medBoxBool, natureBoxBool,
-                     perBoxBool, perfBoxBool, persBoxBool, relBoxBool, sleightBoxBool, stealthBoxBool, surBoxBool,
-                     _armorClass, _initiative, _speed, _health, _tempHealth, _personality, _ideals, _bonds, _flaws,
-                     _featuresTraits, _armor, _otherProf, _equipment, _sheild, _attacksSpellcasting, _raceTraits,
-                     _classTraits, _notesTA, _numcantripsKnown, _numspellsKnown, _numfirstlvl, _numsecondlvl,
-                     _numthirdlvl, _numfourthlvl, _numfithlvl, _numsixthlvl, _numseventhlvl, _numeigthlvl,
-                     _numninethlvl, _fileName);
+                     perBoxBool, perfBoxBool, persBoxBool, relBoxBool, sleightBoxBool, stealthBoxBool, surBoxBool, _ac,
+                     _initiative, _speed, _health, _tempHealth, _personality, _ideals, _bonds, _flaws, _featuresTraits,
+                     _armor, _otherProf, _equipment, _sheild, _attacksSpellcasting, _raceTraits, _classTraits, _notesTA,
+                     _numcantripsKnown, _numspellsKnown, _numfirstlvl, _numsecondlvl, _numthirdlvl, _numfourthlvl,
+                     _numfithlvl, _numsixthlvl, _numseventhlvl, _numeigthlvl, _numninethlvl, _fileName);
             } catch (FileNotFoundException e1) {
                System.out.println("oll");
                e1.printStackTrace();
@@ -1629,7 +1776,8 @@ public class CharacterSheetV3 extends JFrame {
                System.out.println("adf1`");
                e1.printStackTrace();
             }
-
+         }
+      }
          }
       };
 
@@ -1656,23 +1804,59 @@ public class CharacterSheetV3 extends JFrame {
          @Override
          public void actionPerformed(ActionEvent lvl) {
 
-            // levelField.setEditable(true);
             int temp = Integer.parseInt(levelField.getText());
+            System.out.println(temp);
+            System.out.println(lvlOneUpdateYS);
+            if(temp == 2){
+               lvlOneUpdateYS = true;
+            }
             if (temp < 20) {
                try {
                   levelField.setText(String.valueOf(temp + 1));
-               } catch (NumberFormatException nfe) {
-               }
-               if (temp == 1) {
+               } catch (NumberFormatException nfe) {}
+                  localLevelTracker ++;
+               if (temp >= 1) {
                   update.doClick();
                   if (temp == 0) {
                      System.out.println("OWO fucky wucky");
                   }
                }
-               update.doClick();
             } else {
                System.out.println("UvU stop weveling youwu are alwady mwax!!!!");
             }
+            
+
+            CharacterSheetLogic LL = new CharacterSheetLogic(_charClass, _level, _race, _strength, _dex, _con,
+                  _intelligence, _wisdom, _charisma);
+                  temp = Integer.parseInt(levelField.getText());
+
+                  System.out.println(temp);
+            System.out.println(lvlOneUpdateYS);
+         }
+      };
+
+      ActionListener levelDown = new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent lvl) {
+            int temp = Integer.parseInt(levelField.getText());
+
+            if(temp > 1){
+               levelField.setText(String.valueOf(temp - 1));
+                  localLevelTracker --;
+               
+            } else {
+               System.out.println("UvU stop weveling youwu are alwady min!!!!");
+            }
+            update.doClick();
+         }
+      };
+      
+      ActionListener rstForClassChainge = new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            lvlOneUpdateYS = false;
+            levelField.setText(String.valueOf(1));
+            System.out.println(lvlOneUpdateYS);
 
          }
       };
@@ -1681,6 +1865,8 @@ public class CharacterSheetV3 extends JFrame {
       save.addActionListener(saveListener);
       open.addActionListener(fileOpen);
       lvlUp.addActionListener(levelUp);
+      lvlDown.addActionListener(levelDown);
+      classCombo.addActionListener(rstForClassChainge);
 
    }
 

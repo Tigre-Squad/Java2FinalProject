@@ -1,6 +1,9 @@
 import org.json.JSONObject;
 
 public class JSONReader{
+    /**
+    * @author Julian Mato-Hernandez
+    */
     String name; 
     String charClass;  
     int level; 

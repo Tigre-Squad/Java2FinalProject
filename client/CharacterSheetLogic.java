@@ -1,18 +1,21 @@
 import java.util.Random;
 
 public class CharacterSheetLogic {
+   /**
+    * @author Julian Mato-Hernandez
+    */
 
    public static final char[] Intitive = null;
    private String charClass;
    private int level;
    private String race;
 
-   private int strength;
-   private int dex;
-   private int con;
-   private int intelligence;
-   private int wisdom;
-   private int charisma;
+   protected int strength;
+   protected int dex;
+   protected int con;
+   protected int intelligence;
+   protected int wisdom;
+   protected int charisma;
 
    protected int strengthMod;
    protected int dexMod;
@@ -104,6 +107,8 @@ public class CharacterSheetLogic {
    protected int eigthlvl; // not implemented in GUI
    protected int ninethlvl; // not implemented in GUI
 
+   int locallvl;
+
    Random rand = new Random();
 
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,7 +141,7 @@ public class CharacterSheetLogic {
    }
 
    public void update(String _charClass, int _level, String _race, int _strength, int _dex, int _con, int _intelligence,
-         int _wisdom, int _charisma, String _equipment, String _armor, int health, int _ac, String _sheild) {
+         int _wisdom, int _charisma, String _equipment, String _armor, int health, int _ac, String _sheild, int _locallvl) {
       charClass = _charClass;
       level = _level;
       race = _race;
@@ -151,6 +156,8 @@ public class CharacterSheetLogic {
       armor = _armor;
       armorClass = _ac;
       shield = _sheild;
+      locallvl = _locallvl;
+
    }
    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
